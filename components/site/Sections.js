@@ -90,16 +90,35 @@ export function WhyChooseUs() {
 }
 
 export function IndustriesSection() {
+  const featured = industries.filter(i => i.featured)
+  const rest = industries.filter(i => !i.featured)
   return (
     <section className="relative py-24">
       <div className="mx-auto max-w-7xl px-6">
-        <SectionHeader eyebrow="Industries" title="Domain-aware solutions for every sector" />
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-          {industries.map((ind, i) => (
-            <motion.div key={ind.name} initial={{ opacity: 1, scale: 1 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.03 }} className="group relative rounded-2xl p-5 text-center glass card-hover">
-              <div className="w-12 h-12 mx-auto rounded-xl grid place-items-center bg-gradient-to-br from-blue-500 to-cyan-400 text-white"><Icon name={ind.icon} className="w-6 h-6" /></div>
-              <div className="mt-3 text-sm font-semibold">{ind.name}</div>
+        <SectionHeader eyebrow="Industries" title="Deep domain expertise across priority sectors" subtitle="We combine data platform craft with domain understanding across Finance, Technology, Logistics, Supply Chain, Manufacturing and Healthcare." />
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {featured.map((ind, i) => (
+            <motion.div key={ind.name} initial={{ opacity: 1, scale: 1 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.03 }} className="group relative rounded-2xl p-6 glass card-hover overflow-hidden">
+              <div className="absolute -top-16 -right-16 w-40 h-40 rounded-full bg-gradient-to-br from-blue-500/15 to-emerald-500/15 blur-2xl" />
+              <div className="relative">
+                <div className="flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-xl grid place-items-center bg-gradient-to-br from-blue-600 to-emerald-500 text-white shadow-lg"><Icon name={ind.icon} className="w-5 h-5" /></div>
+                  <div>
+                    <div className="text-base font-bold">{ind.name}</div>
+                    <div className="text-[10px] px-1.5 py-0.5 mt-0.5 inline-block rounded-full bg-emerald-500/15 text-emerald-600 font-semibold">Priority Sector</div>
+                  </div>
+                </div>
+                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{ind.desc}</p>
+              </div>
             </motion.div>
+          ))}
+        </div>
+        <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3">
+          {rest.map((ind) => (
+            <div key={ind.name} className="rounded-2xl p-4 glass card-hover flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg grid place-items-center bg-gradient-to-br from-slate-500 to-slate-600 text-white shrink-0"><Icon name={ind.icon} className="w-5 h-5" /></div>
+              <div className="text-sm font-semibold">{ind.name}</div>
+            </div>
           ))}
         </div>
       </div>
@@ -110,37 +129,64 @@ export function IndustriesSection() {
 export function AboutFounder() {
   return (
     <section className="relative py-24 bg-gradient-to-b from-transparent via-slate-50/60 to-transparent dark:via-slate-950/40">
-      <div className="mx-auto max-w-7xl px-6 grid md:grid-cols-12 gap-10 items-center">
-        <div className="md:col-span-5 relative">
-          <div className="relative aspect-[4/5] max-w-sm mx-auto rounded-3xl overflow-hidden shadow-brand glass-strong p-2">
-            <div className="relative w-full h-full rounded-2xl overflow-hidden bg-gradient-to-br from-blue-100 to-cyan-50 dark:from-slate-800 dark:to-slate-900">
-              <Image src={site.founderPhoto} alt={site.founder.name} fill className="object-cover object-center" />
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="inline-flex items-center gap-2 rounded-full glass px-3 py-1 text-xs font-medium"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Leadership</div>
+        <h2 className="mt-4 text-3xl md:text-5xl font-bold tracking-tight">Meet the <span className="gradient-text">Founders</span></h2>
+        <p className="mt-3 text-muted-foreground max-w-2xl">The team behind ASANYX Analytics - combining deep data platform craft with disciplined delivery and long-term partnership.</p>
+
+        <div className="mt-12 grid md:grid-cols-2 gap-8">
+          {/* Founder - Akshay */}
+          <div className="rounded-3xl glass-strong p-6 md:p-8 relative overflow-hidden card-hover">
+            <div className="absolute -top-16 -right-16 w-56 h-56 rounded-full bg-gradient-to-br from-blue-500/20 to-cyan-500/20 blur-2xl" />
+            <div className="relative flex flex-col sm:flex-row items-start gap-6">
+              <div className="relative w-32 h-32 shrink-0 rounded-2xl overflow-hidden ring-1 ring-black/5 dark:ring-white/10 bg-gradient-to-br from-blue-100 to-cyan-50 dark:from-slate-800 dark:to-slate-900">
+                <Image src={site.founderPhoto} alt={site.founder.name} fill className="object-cover object-center" />
+              </div>
+              <div className="flex-1">
+                <div className="text-lg font-bold">{site.founder.name}</div>
+                <div className="text-xs text-cyan-600 dark:text-cyan-400 font-semibold">{site.founder.designation}</div>
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  {['Power BI','Microsoft Fabric','Azure','SQL','Semantic Models'].map(t => <span key={t} className="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-300 font-semibold">{t}</span>)}
+                </div>
+              </div>
+            </div>
+            <p className="mt-5 text-sm text-muted-foreground leading-relaxed">{site.founder.bio}</p>
+            <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{site.founder.bio2}</p>
+            <div className="mt-5 flex gap-3">
+              <a href={site.founder.linkedin} target="_blank" rel="noopener noreferrer" className="btn-ghost-brand !py-2 !px-4 !text-[13px]"><Icons.Linkedin className="w-4 h-4" /> LinkedIn</a>
             </div>
           </div>
-          <div className="absolute -bottom-4 -right-2 md:right-8 glass-strong rounded-2xl p-3 shadow-brand">
-            <div className="text-xs text-muted-foreground">Nearly</div>
-            <div className="text-2xl font-bold gradient-text">7+ Years</div>
-            <div className="text-[11px] text-muted-foreground">Enterprise BI & Data</div>
+
+          {/* Co-Founder - Sanyogita */}
+          <div className="rounded-3xl glass-strong p-6 md:p-8 relative overflow-hidden card-hover">
+            <div className="absolute -top-16 -right-16 w-56 h-56 rounded-full bg-gradient-to-br from-emerald-500/20 to-teal-500/20 blur-2xl" />
+            <div className="relative flex flex-col sm:flex-row items-start gap-6">
+              <div className="relative w-32 h-32 shrink-0 rounded-2xl overflow-hidden ring-1 ring-black/5 dark:ring-white/10 bg-gradient-to-br from-emerald-100 to-teal-50 dark:from-slate-800 dark:to-slate-900">
+                <Image src={site.coFounderPhoto} alt={site.coFounder.name} fill className="object-cover object-center" />
+              </div>
+              <div className="flex-1">
+                <div className="text-lg font-bold">{site.coFounder.name}</div>
+                <div className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold">{site.coFounder.designation}</div>
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  {['Delivery','Client Success','Data Analytics','Governance'].map(t => <span key={t} className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-300 font-semibold">{t}</span>)}
+                </div>
+              </div>
+            </div>
+            <p className="mt-5 text-sm text-muted-foreground leading-relaxed">{site.coFounder.bio}</p>
+            <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{site.coFounder.bio2}</p>
+            <div className="mt-5 flex gap-3">
+              <a href={site.coFounder.linkedin} target="_blank" rel="noopener noreferrer" className="btn-ghost-brand !py-2 !px-4 !text-[13px]"><Icons.Linkedin className="w-4 h-4" /> LinkedIn</a>
+            </div>
           </div>
         </div>
-        <div className="md:col-span-7">
-          <div className="inline-flex items-center gap-2 rounded-full glass px-3 py-1 text-xs font-medium"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> About the Founder</div>
-          <h2 className="mt-4 text-3xl md:text-5xl font-bold tracking-tight">Meet <span className="gradient-text">{site.founder.name}</span></h2>
-          <div className="mt-1 text-sm text-muted-foreground">{site.founder.designation}</div>
-          <p className="mt-6 text-muted-foreground leading-relaxed">Akshay has nearly seven years of professional experience helping organizations make better business decisions through Business Intelligence, Data Analytics, and Modern Data Platforms. He has led work across Microsoft Fabric, Power BI, SQL, Azure Data Engineering, Data Modeling, Dashboard Development, Enterprise Reporting, Performance Optimization, Data Governance and Cloud Analytics.</p>
-          <p className="mt-4 text-muted-foreground leading-relaxed">He founded ASANYX Analytics with a simple belief: enterprises deserve modern data platforms that are elegant, governed and genuinely useful - not just technically impressive. Every engagement is anchored to measurable business outcomes and long-term platform value.</p>
-          <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {[{k:'7+',v:'Years'},{k:'50+',v:'Dashboards'},{k:'10+',v:'Industries'},{k:'100%',v:'Ownership'}].map(s => (
-              <div key={s.v} className="rounded-xl glass p-3 text-center">
-                <div className="text-xl font-bold gradient-text">{s.k}</div>
-                <div className="text-[11px] text-muted-foreground">{s.v}</div>
-              </div>
-            ))}
-          </div>
-          <div className="mt-6 flex gap-3">
-            <Link href="/about" className="btn-primary-brand">Read Full Story <Icons.ArrowRight className="w-4 h-4" /></Link>
-            <Link href="/contact" className="btn-ghost-brand">Get in Touch</Link>
-          </div>
+
+        <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-3 max-w-3xl">
+          {[{k:'7+',v:'Years Experience'},{k:'50+',v:'Dashboards Delivered'},{k:'10+',v:'Industries Served'},{k:'100%',v:'Founder-led Ownership'}].map(s => (
+            <div key={s.v} className="rounded-xl glass p-3 text-center">
+              <div className="text-xl font-bold gradient-text">{s.k}</div>
+              <div className="text-[11px] text-muted-foreground">{s.v}</div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -198,7 +244,7 @@ export function CaseStudiesSection({ limit }) {
                     <div className="text-2xl font-bold gradient-text">{c.metric}</div>
                     <div className="text-[11px] text-muted-foreground uppercase tracking-wider">{c.metricLabel}</div>
                   </div>
-                  <div className="text-[10px] text-muted-foreground italic">Representative example</div>
+                  <div className={`text-[10px] italic ${c.tag === 'Real Portfolio Project' ? 'text-emerald-600 dark:text-emerald-400 not-italic font-semibold px-2 py-0.5 rounded-full bg-emerald-500/10' : 'text-muted-foreground'}`}>{c.tag || 'Representative example'}</div>
                 </div>
               </div>
             </motion.div>
