@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { MongoClient } from 'mongodb'
 import { v4 as uuidv4 } from 'uuid'
+import { sendEmails } from '@/lib/email'
 
 const uri = process.env.MONGO_URL
 const dbName = process.env.DB_NAME || 'asanyx'
@@ -21,9 +22,10 @@ function ok(data = {}) { return NextResponse.json({ ok: true, ...data }) }
 function fail(error, status = 400) { return NextResponse.json({ ok: false, error }, { status }) }
 
 export async function GET(request, { params }) {
-  const p = (params?.path || []).join('/')
+  const resolved = await params
+  const p = (resolved?.path || []).join('/')
   try {
-    if (!p || p === '') return ok({ message: 'ASANYX Analytics API', version: '1.0.0' })
+    if (!p || p === '') return ok({ message: 'ASANYX Analytics API', version: '1.1.0' })
     if (p === 'health') return ok({ status: 'healthy' })
     if (p === 'blog') {
       const db = await getDb()
@@ -42,7 +44,8 @@ export async function GET(request, { params }) {
 }
 
 export async function POST(request, { params }) {
-  const p = (params?.path || []).join('/')
+  const resolved = await params
+  const p = (resolved?.path || []).join('/')
   try {
     const body = await request.json().catch(() => ({}))
     const db = await getDb()
@@ -52,6 +55,7 @@ export async function POST(request, { params }) {
       if (!name || !email || !message) return fail('Name, email and message are required')
       const doc = { id: uuidv4(), name, email, company: company || '', phone: phone || '', service: service || '', message, source: 'contact_form', createdAt: new Date().toISOString() }
       await db.collection('contacts').insertOne(doc)
+      sendEmails({ type: 'contact', submissionId: doc.id, data: { name, email, company, phone, service, message } }).catch(e => console.error(e))
       return ok({ id: doc.id })
     }
 
@@ -60,13 +64,16 @@ export async function POST(request, { params }) {
       if (!name || !email) return fail('Name and email are required')
       const doc = { id: uuidv4(), name, email, company: company || '', phone: phone || '', preferredTime: preferredTime || '', topic: topic || '', source: 'consultation', createdAt: new Date().toISOString() }
       await db.collection('contacts').insertOne(doc)
+      sendEmails({ type: 'consultation', submissionId: doc.id, data: { name, email, company, phone, preferredTime, topic } }).catch(e => console.error(e))
       return ok({ id: doc.id })
     }
 
     if (p === 'newsletter') {
       const { email } = body
       if (!email) return fail('Email is required')
-      await db.collection('newsletter').updateOne({ email }, { $set: { email, updatedAt: new Date().toISOString() }, $setOnInsert: { id: uuidv4(), createdAt: new Date().toISOString() } }, { upsert: true })
+      const id = uuidv4()
+      await db.collection('newsletter').updateOne({ email }, { $set: { email, updatedAt: new Date().toISOString() }, $setOnInsert: { id, createdAt: new Date().toISOString() } }, { upsert: true })
+      sendEmails({ type: 'newsletter', submissionId: id, data: { email } }).catch(e => console.error(e))
       return ok()
     }
 
@@ -75,13 +82,16 @@ export async function POST(request, { params }) {
       if (!name || !email) return fail('Name and email are required')
       const doc = { id: uuidv4(), name, email, phone: phone || '', role: role || 'General', message: message || '', resumeUrl: resumeUrl || '', createdAt: new Date().toISOString() }
       await db.collection('applications').insertOne(doc)
+      sendEmails({ type: 'careers/apply', submissionId: doc.id, data: { name, email, phone, role, message, resumeUrl } }).catch(e => console.error(e))
       return ok({ id: doc.id })
     }
 
     if (p === 'resources/download') {
       const { title, email } = body
       if (!title) return fail('Title is required')
-      await db.collection('downloads').insertOne({ id: uuidv4(), title, email: email || '', createdAt: new Date().toISOString() })
+      const id = uuidv4()
+      await db.collection('downloads').insertOne({ id, title, email: email || '', createdAt: new Date().toISOString() })
+      sendEmails({ type: 'resources/download', submissionId: id, data: { title, email } }).catch(e => console.error(e))
       return ok()
     }
 
