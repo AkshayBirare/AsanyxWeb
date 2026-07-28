@@ -66,6 +66,7 @@ export default function Footer() {
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li><Link href="/resources">Guides</Link></li>
               <li><Link href="/blog">Blog</Link></li>
+              <li><Link href="/brand">Brand Kit</Link></li>
               <li><Link href="/privacy">Privacy Policy</Link></li>
               <li><Link href="/terms">Terms & Conditions</Link></li>
             </ul>
