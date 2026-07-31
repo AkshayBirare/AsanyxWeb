@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowRight, ShieldCheck, Repeat, CloudCog, Users } from 'lucide-react'
+import { ArrowRight, ShieldCheck, Repeat, CloudCog, Users, TrendingUp, BarChart3, Layers, Sparkles, Database } from 'lucide-react'
 import { site } from '@/lib/site'
 
 export default function Hero() {
@@ -42,7 +42,7 @@ export default function Hero() {
           </div>
 
           <div className="lg:col-span-5 animate-fade-up">
-            <HeroIllustration />
+            <HeroVisual />
           </div>
         </div>
       </div>
@@ -50,77 +50,100 @@ export default function Hero() {
   )
 }
 
-function HeroIllustration() {
+function HeroVisual() {
   return (
     <div className="relative w-full max-w-lg mx-auto">
-      {/* Main dashboard card */}
-      <div className="card-corp p-5 shadow-[0_30px_80px_-20px_rgba(20,34,106,0.25)]">
-        <div className="flex items-center justify-between">
-          <div>
-            <div className="text-[10px] uppercase tracking-widest text-slate-500">Executive Dashboard</div>
-            <div className="text-sm font-semibold text-slate-900 dark:text-white mt-0.5">Revenue Performance</div>
+      {/* Main capability card - branded */}
+      <div className="card-corp p-6 shadow-[0_30px_80px_-20px_rgba(20,34,106,0.25)] relative overflow-hidden">
+        {/* Brand accent stripe */}
+        <div className="absolute top-0 left-0 right-0 h-1 brand-gradient" />
+
+        {/* Logo mark + title row */}
+        <div className="flex items-center justify-between mt-2">
+          <div className="flex items-center gap-3">
+            <div className="relative w-11 h-11 rounded-xl overflow-hidden bg-white ring-1 ring-slate-200 dark:ring-white/10 p-1">
+              <Image src={site.logoMark} alt="ASANYX" fill className="object-contain p-0.5" sizes="44px" />
+            </div>
+            <div>
+              <div className="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-semibold">Modern Data Platform</div>
+              <div className="text-sm font-bold text-slate-900 dark:text-white">ASANYX Analytics</div>
+            </div>
           </div>
-          <div className="text-[10px] px-2 py-0.5 rounded-full bg-brand-tint text-brand-violet font-semibold">Preview</div>
+          <div className="text-[10px] px-2 py-1 rounded-full bg-brand-tint text-brand-violet font-semibold">Enterprise</div>
         </div>
 
-        <div className="mt-5 grid grid-cols-3 gap-3">
-          {[{l:'Revenue',bar:82},{l:'Orders',bar:64},{l:'Margin',bar:71}].map(k => (
-            <div key={k.l} className="rounded-lg border border-slate-200 dark:border-white/10 p-3 bg-slate-50/60 dark:bg-white/5">
-              <div className="text-[9px] text-slate-500 uppercase tracking-wider">{k.l}</div>
-              <div className="mt-2 h-6 flex items-end gap-0.5">
-                {[...Array(8)].map((_,i)=>(<div key={i} className="w-1 rounded-sm brand-gradient" style={{height:`${20+Math.sin(i+k.bar)*40+20}%`}} />))}
-              </div>
-              <div className="mt-2 h-1 rounded-full bg-slate-100 dark:bg-white/10 overflow-hidden"><div className="h-full rounded-full brand-gradient" style={{width:`${k.bar}%`}} /></div>
+        {/* Capability pills */}
+        <div className="mt-6 grid grid-cols-2 gap-2.5">
+          {[
+            { icon: BarChart3, label: 'Business Intelligence' },
+            { icon: Database, label: 'Data Engineering' },
+            { icon: Layers, label: 'Microsoft Fabric' },
+            { icon: Sparkles, label: 'Analytics & AI' },
+          ].map(({ icon: Icon, label }) => (
+            <div key={label} className="rounded-lg border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 p-3 flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-md brand-gradient text-white grid place-items-center shrink-0"><Icon className="w-4 h-4" /></div>
+              <div className="text-[13px] font-semibold text-slate-800 dark:text-slate-200 leading-tight">{label}</div>
             </div>
           ))}
         </div>
 
-        <div className="mt-4 h-32 relative rounded-lg bg-slate-50 dark:bg-white/5 border border-slate-200/60 dark:border-white/10 overflow-hidden">
-          <svg viewBox="0 0 400 130" className="absolute inset-0 w-full h-full">
-            <defs>
-              <linearGradient id="heroChart" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#6929E0" stopOpacity="0.4" />
-                <stop offset="100%" stopColor="#0F6EFF" stopOpacity="0" />
-              </linearGradient>
-              <linearGradient id="heroLine" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="#14226A" />
-                <stop offset="50%" stopColor="#6929E0" />
-                <stop offset="100%" stopColor="#0F6EFF" />
-              </linearGradient>
-            </defs>
-            <path d="M0,100 C50,80 100,40 160,50 C220,60 260,90 320,70 C360,55 380,30 400,35 L400,130 L0,130 Z" fill="url(#heroChart)" />
-            <path d="M0,100 C50,80 100,40 160,50 C220,60 260,90 320,70 C360,55 380,30 400,35" fill="none" stroke="url(#heroLine)" strokeWidth="2" />
-          </svg>
-          <div className="absolute top-2 left-3 text-[9px] uppercase tracking-widest text-slate-500">Trend</div>
-        </div>
-
-        <div className="mt-4 flex items-center gap-2">
-          <div className="flex-1 rounded-lg border border-slate-200 dark:border-white/10 p-3">
-            <div className="text-[9px] text-slate-500 uppercase tracking-widest">Data Platform</div>
-            <div className="text-xs font-semibold text-slate-900 dark:text-white mt-1">Microsoft Fabric</div>
-            <div className="mt-2 flex flex-wrap gap-1">
-              {['Lakehouse','Warehouse','Semantic'].map(t => <span key={t} className="text-[9px] px-1.5 py-0.5 rounded bg-brand-tint text-brand-navy dark:bg-white/10 dark:text-slate-200 font-semibold">{t}</span>)}
-            </div>
+        {/* Platform badges */}
+        <div className="mt-5 pt-4 border-t border-slate-100 dark:border-white/10">
+          <div className="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-semibold mb-3">Delivering On</div>
+          <div className="grid grid-cols-6 gap-2">
+            {[
+              { name: 'Power BI', url: 'https://api.iconify.design/logos:microsoft-power-bi.svg' },
+              { name: 'Azure', url: 'https://api.iconify.design/logos:microsoft-azure.svg' },
+              { name: 'GCP', url: 'https://api.iconify.design/logos:google-cloud.svg' },
+              { name: 'Snowflake', url: 'https://api.iconify.design/logos:snowflake-icon.svg' },
+              { name: 'Databricks', url: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/databricks.svg' },
+              { name: 'Fabric', url: null, initial: 'F' },
+            ].map(p => (
+              <div key={p.name} className="aspect-square rounded-lg bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 grid place-items-center p-1.5" title={p.name}>
+                {p.url ? (
+                  <img src={p.url} alt={p.name} className="w-full h-full object-contain" loading="lazy" />
+                ) : (
+                  <div className="w-full h-full rounded-md brand-gradient text-white grid place-items-center text-xs font-bold">{p.initial}</div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
-      </div>
 
-      {/* Floating small card */}
-      <div className="hidden md:block absolute -bottom-6 -left-6 card-corp p-3 w-52 shadow-[0_20px_50px_-20px_rgba(20,34,106,0.20)] float-y">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-md brand-gradient text-white grid place-items-center text-[10px] font-bold">MS</div>
+        {/* Bottom outcome bar */}
+        <div className="mt-5 rounded-lg brand-gradient text-white p-3 flex items-center justify-between">
           <div>
-            <div className="text-[9px] text-slate-500 uppercase tracking-widest">Migration</div>
-            <div className="text-xs font-semibold text-slate-900 dark:text-white">Tableau → Power BI</div>
+            <div className="text-[9px] uppercase tracking-widest text-white/70 font-semibold">Outcome</div>
+            <div className="text-sm font-bold leading-tight">Turning Data into Decisions That Drive Growth</div>
           </div>
+          <TrendingUp className="w-5 h-5 opacity-80" />
         </div>
       </div>
 
-      <div className="hidden md:block absolute -top-4 -right-4 card-corp p-3 shadow-[0_20px_50px_-20px_rgba(20,34,106,0.20)] float-y" style={{animationDelay:'-3s'}}>
-        <div className="text-[9px] uppercase tracking-widest text-slate-500">Engagement</div>
-        <div className="text-xs font-semibold text-slate-900 dark:text-white mt-0.5">Dedicated Remote</div>
+      {/* Floating card - Migration */}
+      <div className="hidden md:block absolute -bottom-6 -left-6 card-corp p-3.5 w-56 shadow-[0_20px_50px_-20px_rgba(20,34,106,0.20)] float-y">
+        <div className="flex items-center gap-2.5">
+          <div className="w-9 h-9 rounded-md brand-gradient text-white grid place-items-center">
+            <Repeat className="w-4 h-4" />
+          </div>
+          <div>
+            <div className="text-[9px] uppercase tracking-widest text-slate-500 font-semibold">Featured Practice</div>
+            <div className="text-[13px] font-bold text-slate-900 dark:text-white leading-tight">Migration Services</div>
+          </div>
+        </div>
+        <div className="mt-2 flex flex-wrap gap-1">
+          {['Tableau','Qlik','Looker'].map(t => <span key={t} className="text-[9px] px-1.5 py-0.5 rounded bg-brand-tint text-brand-navy font-semibold">{t}</span>)}
+          <span className="text-[9px] px-1.5 py-0.5 rounded brand-gradient text-white font-semibold">→ Power BI</span>
+        </div>
+      </div>
+
+      {/* Floating card - Engagement */}
+      <div className="hidden md:block absolute -top-4 -right-4 card-corp p-3.5 shadow-[0_20px_50px_-20px_rgba(20,34,106,0.20)] float-y" style={{animationDelay:'-3s'}}>
+        <div className="text-[9px] uppercase tracking-widest text-slate-500 font-semibold">Engagement</div>
+        <div className="text-[13px] font-bold text-slate-900 dark:text-white mt-0.5">Dedicated Remote</div>
         <div className="mt-2 flex -space-x-1.5">
           {[0,1,2,3].map(i => <div key={i} className="w-5 h-5 rounded-full brand-gradient border-2 border-white dark:border-slate-900" />)}
+          <div className="w-5 h-5 rounded-full bg-slate-200 dark:bg-white/10 border-2 border-white dark:border-slate-900 grid place-items-center text-[8px] font-bold text-slate-600">+</div>
         </div>
       </div>
     </div>

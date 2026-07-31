@@ -1,7 +1,7 @@
 'use client'
 import SiteLayout from '@/components/site/Layout'
 import Hero from '@/components/site/Hero'
-import { CredibilityStrip, PrimaryOfferingsSection, MigrationServicesSection, WhyAsanyx, ServicesOverview, IndustriesGrid, TechnologiesSection, EngagementModels, DeliveryProcess, CaseStudiesGrid, LeadershipTeaser, CTABand } from '@/components/site/Sections'
+import { CredibilityStrip, PrimaryOfferingsSection, MigrationServicesSection, WhyAsanyx, ServicesOverview, IndustriesGrid, TechnologiesSection, EngagementModels, DeliveryProcess, LeadershipTeaser, CTABand } from '@/components/site/Sections'
 
 function Home() {
   return (
@@ -16,7 +16,6 @@ function Home() {
       <IndustriesGrid />
       <WhyAsanyx />
       <DeliveryProcess />
-      <CaseStudiesGrid limit={3} />
       <LeadershipTeaser />
       <CTABand />
     </SiteLayout>
