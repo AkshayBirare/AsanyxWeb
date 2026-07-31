@@ -1,32 +1,43 @@
 'use client'
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
+import Image from 'next/image'
+import { ArrowRight, ShieldCheck, Repeat, CloudCog, Users } from 'lucide-react'
+import { site } from '@/lib/site'
 
 export default function Hero() {
   return (
-    <section className="relative bg-white dark:bg-slate-950 overflow-hidden">
-      <div className="absolute inset-0 hero-grid opacity-70" />
-      <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-[#F5F8FC] via-white to-white dark:from-slate-900 dark:via-slate-950 dark:to-slate-950" />
+    <section className="relative bg-white dark:bg-slate-950 overflow-hidden border-b border-slate-100 dark:border-white/5">
+      <div className="absolute inset-0 hero-grid opacity-60" />
+      <div className="absolute -top-40 -right-20 w-[600px] h-[600px] rounded-full blur-3xl opacity-20" style={{background:'radial-gradient(circle,#6929E0,transparent 60%)'}} />
+      <div className="absolute -bottom-40 -left-20 w-[500px] h-[500px] rounded-full blur-3xl opacity-15" style={{background:'radial-gradient(circle,#0F6EFF,transparent 60%)'}} />
 
       <div className="relative container-x pt-16 pb-20 lg:pt-24 lg:pb-28">
         <div className="grid lg:grid-cols-12 gap-14 items-center">
           <div className="lg:col-span-7 animate-fade-up">
-            <div className="eyebrow">IT Consulting &middot; Business Intelligence</div>
+            <div className="eyebrow">Business Intelligence &middot; Data Analytics &middot; Data Engineering</div>
             <h1 className="mt-5 text-4xl sm:text-5xl lg:text-[56px] font-bold leading-[1.08] tracking-tight text-slate-900 dark:text-white">
               Enterprise Business Intelligence &amp;<br className="hidden md:block"/>
-              <span className="text-brand">Data Analytics Consulting</span>
+              <span className="gradient-text-brand">Data Analytics Consulting</span>
             </h1>
             <p className="mt-6 text-lg text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed">
-              Helping organizations build scalable Business Intelligence, Data Engineering, Analytics and AI-driven solutions that accelerate decision making.
+              Helping organizations build scalable Business Intelligence, Data Engineering and AI-driven analytics solutions - powered by Microsoft Power BI, Microsoft Fabric, Azure, Databricks, Snowflake and GCP.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Link href="/contact" className="btn-primary">Talk to an Expert <ArrowRight className="w-4 h-4" /></Link>
               <Link href="/services" className="btn-outline">Our Services</Link>
             </div>
-            <div className="mt-10 flex items-center gap-8 text-sm text-slate-500 dark:text-slate-400">
-              <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-emerald-500" /> Certified Consultants</div>
-              <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-emerald-500" /> Enterprise Delivery</div>
-              <div className="hidden md:flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-emerald-500" /> Global Remote Teams</div>
+            <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl">
+              {[
+                { icon: ShieldCheck, label: 'Enterprise-Grade Delivery' },
+                { icon: Repeat, label: 'Proven Migration Expertise' },
+                { icon: CloudCog, label: 'Scalable Cloud Analytics' },
+                { icon: Users, label: 'Experienced Consulting Team' },
+              ].map(({ icon: Icon, label }) => (
+                <div key={label} className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-md bg-brand-tint dark:bg-white/5 text-brand-violet grid place-items-center shrink-0"><Icon className="w-3.5 h-3.5" /></div>
+                  <div className="text-[12px] font-medium text-slate-700 dark:text-slate-300 leading-tight">{label}</div>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -43,21 +54,23 @@ function HeroIllustration() {
   return (
     <div className="relative w-full max-w-lg mx-auto">
       {/* Main dashboard card */}
-      <div className="card-corp p-5 shadow-[0_30px_80px_-20px_rgba(11,31,58,0.20)]">
+      <div className="card-corp p-5 shadow-[0_30px_80px_-20px_rgba(20,34,106,0.25)]">
         <div className="flex items-center justify-between">
           <div>
-            <div className="text-xs uppercase tracking-wider text-slate-500">Executive Overview</div>
-            <div className="text-sm font-semibold text-slate-900 dark:text-white mt-0.5">FY25 Performance</div>
+            <div className="text-[10px] uppercase tracking-widest text-slate-500">Executive Dashboard</div>
+            <div className="text-sm font-semibold text-slate-900 dark:text-white mt-0.5">Revenue Performance</div>
           </div>
-          <div className="text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 font-semibold">Live</div>
+          <div className="text-[10px] px-2 py-0.5 rounded-full bg-brand-tint text-brand-violet font-semibold">Preview</div>
         </div>
 
         <div className="mt-5 grid grid-cols-3 gap-3">
-          {[{l:'Revenue',v:'₹8.42Cr',t:'+12.4%'},{l:'Orders',v:'12,480',t:'+18.2%'},{l:'NPS',v:'62',t:'+4pt'}].map(k => (
+          {[{l:'Revenue',bar:82},{l:'Orders',bar:64},{l:'Margin',bar:71}].map(k => (
             <div key={k.l} className="rounded-lg border border-slate-200 dark:border-white/10 p-3 bg-slate-50/60 dark:bg-white/5">
-              <div className="text-[10px] text-slate-500 uppercase tracking-wider">{k.l}</div>
-              <div className="text-base font-bold text-slate-900 dark:text-white">{k.v}</div>
-              <div className="text-[10px] text-emerald-600 font-semibold mt-0.5">{k.t}</div>
+              <div className="text-[9px] text-slate-500 uppercase tracking-wider">{k.l}</div>
+              <div className="mt-2 h-6 flex items-end gap-0.5">
+                {[...Array(8)].map((_,i)=>(<div key={i} className="w-1 rounded-sm brand-gradient" style={{height:`${20+Math.sin(i+k.bar)*40+20}%`}} />))}
+              </div>
+              <div className="mt-2 h-1 rounded-full bg-slate-100 dark:bg-white/10 overflow-hidden"><div className="h-full rounded-full brand-gradient" style={{width:`${k.bar}%`}} /></div>
             </div>
           ))}
         </div>
@@ -66,55 +79,48 @@ function HeroIllustration() {
           <svg viewBox="0 0 400 130" className="absolute inset-0 w-full h-full">
             <defs>
               <linearGradient id="heroChart" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#0057B7" stopOpacity="0.35" />
-                <stop offset="100%" stopColor="#0057B7" stopOpacity="0" />
+                <stop offset="0%" stopColor="#6929E0" stopOpacity="0.4" />
+                <stop offset="100%" stopColor="#0F6EFF" stopOpacity="0" />
+              </linearGradient>
+              <linearGradient id="heroLine" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stopColor="#14226A" />
+                <stop offset="50%" stopColor="#6929E0" />
+                <stop offset="100%" stopColor="#0F6EFF" />
               </linearGradient>
             </defs>
             <path d="M0,100 C50,80 100,40 160,50 C220,60 260,90 320,70 C360,55 380,30 400,35 L400,130 L0,130 Z" fill="url(#heroChart)" />
-            <path d="M0,100 C50,80 100,40 160,50 C220,60 260,90 320,70 C360,55 380,30 400,35" fill="none" stroke="#0057B7" strokeWidth="2" />
-            {[40,90,140,190,240,290,340].map((x,i)=>(
-              <circle key={i} cx={x} cy={100-Math.sin(i*0.8)*30-i*2} r="2.5" fill="#0057B7" />
-            ))}
+            <path d="M0,100 C50,80 100,40 160,50 C220,60 260,90 320,70 C360,55 380,30 400,35" fill="none" stroke="url(#heroLine)" strokeWidth="2" />
           </svg>
+          <div className="absolute top-2 left-3 text-[9px] uppercase tracking-widest text-slate-500">Trend</div>
         </div>
 
-        <div className="mt-4 grid grid-cols-2 gap-3">
-          <div className="rounded-lg border border-slate-200 dark:border-white/10 p-3">
-            <div className="text-[10px] text-slate-500 uppercase tracking-wider">Top Region</div>
-            <div className="text-sm font-semibold text-slate-900 dark:text-white">West · 42%</div>
-            <div className="mt-2 h-1.5 rounded-full bg-slate-100 dark:bg-white/10 overflow-hidden">
-              <div className="h-full w-[42%] rounded-full" style={{background:'#0057B7'}} />
-            </div>
-          </div>
-          <div className="rounded-lg border border-slate-200 dark:border-white/10 p-3">
-            <div className="text-[10px] text-slate-500 uppercase tracking-wider">Forecast</div>
-            <div className="text-sm font-semibold text-slate-900 dark:text-white">₹9.6Cr Q4</div>
-            <div className="mt-2 h-1.5 rounded-full bg-slate-100 dark:bg-white/10 overflow-hidden">
-              <div className="h-full w-[68%] rounded-full bg-emerald-500" />
+        <div className="mt-4 flex items-center gap-2">
+          <div className="flex-1 rounded-lg border border-slate-200 dark:border-white/10 p-3">
+            <div className="text-[9px] text-slate-500 uppercase tracking-widest">Data Platform</div>
+            <div className="text-xs font-semibold text-slate-900 dark:text-white mt-1">Microsoft Fabric</div>
+            <div className="mt-2 flex flex-wrap gap-1">
+              {['Lakehouse','Warehouse','Semantic'].map(t => <span key={t} className="text-[9px] px-1.5 py-0.5 rounded bg-brand-tint text-brand-navy dark:bg-white/10 dark:text-slate-200 font-semibold">{t}</span>)}
             </div>
           </div>
         </div>
       </div>
 
-      {/* Floating side card */}
-      <div className="hidden md:block absolute -bottom-8 -left-8 card-corp p-4 w-56 shadow-[0_20px_50px_-20px_rgba(11,31,58,0.20)]">
+      {/* Floating small card */}
+      <div className="hidden md:block absolute -bottom-6 -left-6 card-corp p-3 w-52 shadow-[0_20px_50px_-20px_rgba(20,34,106,0.20)] float-y">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-md bg-[#0B1F3A] text-white grid place-items-center text-[10px] font-bold">FBR</div>
+          <div className="w-8 h-8 rounded-md brand-gradient text-white grid place-items-center text-[10px] font-bold">MS</div>
           <div>
-            <div className="text-[10px] text-slate-500 uppercase tracking-wider">Data Platform</div>
-            <div className="text-xs font-semibold text-slate-900 dark:text-white">Microsoft Fabric</div>
+            <div className="text-[9px] text-slate-500 uppercase tracking-widest">Migration</div>
+            <div className="text-xs font-semibold text-slate-900 dark:text-white">Tableau → Power BI</div>
           </div>
-        </div>
-        <div className="mt-2 flex flex-wrap gap-1">
-          {['Lakehouse','Warehouse','Semantic'].map(t => <span key={t} className="text-[9px] px-1.5 py-0.5 rounded bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 font-semibold">{t}</span>)}
         </div>
       </div>
 
-      <div className="hidden md:block absolute -top-6 -right-6 card-corp p-3 shadow-[0_20px_50px_-20px_rgba(11,31,58,0.20)]">
-        <div className="text-[10px] text-slate-500 uppercase tracking-wider">On-time Delivery</div>
-        <div className="flex items-end gap-2">
-          <div className="text-2xl font-bold text-slate-900 dark:text-white">98.4%</div>
-          <div className="text-[10px] text-emerald-600 font-semibold pb-1">+2.1%</div>
+      <div className="hidden md:block absolute -top-4 -right-4 card-corp p-3 shadow-[0_20px_50px_-20px_rgba(20,34,106,0.20)] float-y" style={{animationDelay:'-3s'}}>
+        <div className="text-[9px] uppercase tracking-widest text-slate-500">Engagement</div>
+        <div className="text-xs font-semibold text-slate-900 dark:text-white mt-0.5">Dedicated Remote</div>
+        <div className="mt-2 flex -space-x-1.5">
+          {[0,1,2,3].map(i => <div key={i} className="w-5 h-5 rounded-full brand-gradient border-2 border-white dark:border-slate-900" />)}
         </div>
       </div>
     </div>

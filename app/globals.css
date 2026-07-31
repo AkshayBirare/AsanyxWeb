@@ -7,44 +7,44 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 217 45% 14%;
+    --foreground: 232 45% 14%;
     --card: 0 0% 100%;
-    --card-foreground: 217 45% 14%;
+    --card-foreground: 232 45% 14%;
     --popover: 0 0% 100%;
-    --popover-foreground: 217 45% 14%;
-    --primary: 217 68% 20%;
+    --popover-foreground: 232 45% 14%;
+    --primary: 230 60% 27%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 217 45% 14%;
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 20% 45%;
-    --accent: 210 100% 42%;
+    --secondary: 218 33% 96%;
+    --secondary-foreground: 232 45% 14%;
+    --muted: 218 33% 96%;
+    --muted-foreground: 220 15% 45%;
+    --accent: 218 100% 53%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 217 68% 25%;
-    --radius: 0.75rem;
+    --border: 220 20% 90%;
+    --input: 220 20% 90%;
+    --ring: 218 100% 53%;
+    --radius: 0.85rem;
   }
   .dark {
-    --background: 222 47% 6%;
+    --background: 232 45% 6%;
     --foreground: 210 40% 98%;
-    --card: 222 47% 8%;
+    --card: 232 45% 9%;
     --card-foreground: 210 40% 98%;
-    --popover: 222 47% 8%;
+    --popover: 232 45% 9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 210 100% 60%;
-    --primary-foreground: 222 47% 6%;
-    --secondary: 217 33% 14%;
+    --primary: 218 100% 60%;
+    --primary-foreground: 232 45% 6%;
+    --secondary: 232 30% 14%;
     --secondary-foreground: 210 40% 98%;
-    --muted: 217 33% 14%;
-    --muted-foreground: 215 20% 65%;
-    --accent: 210 100% 55%;
-    --accent-foreground: 222 47% 6%;
-    --border: 217 33% 18%;
-    --input: 217 33% 18%;
-    --ring: 210 100% 60%;
+    --muted: 232 30% 14%;
+    --muted-foreground: 220 15% 65%;
+    --accent: 218 100% 55%;
+    --accent-foreground: 232 45% 6%;
+    --border: 232 30% 18%;
+    --input: 232 30% 18%;
+    --ring: 218 100% 60%;
   }
 }
 
@@ -67,46 +67,65 @@
 
 @layer utilities {
   .container-x { @apply mx-auto max-w-7xl px-6 md:px-8; }
-  .navy { color: #0B1F3A; }
-  .bg-navy { background-color: #0B1F3A; }
-  .bg-navy-50 { background-color: #F5F8FC; }
-  .bg-navy-100 { background-color: #EAF0F8; }
-  .text-brand { color: #0057B7; }
-  .bg-brand { background-color: #0057B7; }
-  .border-navy { border-color: #0B1F3A; }
+
+  /* Brand palette from new ASANYX logo */
+  .bg-brand-navy { background-color: #14226A; }
+  .bg-brand-navy-dark { background-color: #0B1236; }
+  .bg-brand-violet { background-color: #6929E0; }
+  .bg-brand-blue { background-color: #0F6EFF; }
+  .bg-brand-tint { background-color: #EEF2FF; }
+  .text-brand-navy { color: #14226A; }
+  .text-brand-violet { color: #6929E0; }
+  .text-brand-blue { color: #0F6EFF; }
+  .border-brand-blue { border-color: #0F6EFF; }
+  .ring-brand-blue { --tw-ring-color: rgba(15,110,255,0.35); }
+
+  .brand-gradient {
+    background: linear-gradient(120deg, #14226A 0%, #6929E0 55%, #0F6EFF 100%);
+  }
+  .brand-gradient-soft {
+    background: linear-gradient(120deg, rgba(20,34,106,0.08) 0%, rgba(105,41,224,0.08) 50%, rgba(15,110,255,0.08) 100%);
+  }
+  .gradient-text-brand {
+    background: linear-gradient(120deg, #14226A 0%, #6929E0 55%, #0F6EFF 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 
   .card-corp {
     @apply bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/70 dark:border-white/10 transition-all duration-300;
   }
   .card-corp:hover {
-    @apply -translate-y-0.5 shadow-[0_20px_50px_-20px_rgba(11,31,58,0.18)] border-slate-300 dark:border-white/20;
+    @apply -translate-y-0.5 border-slate-300 dark:border-white/20;
+    box-shadow: 0 20px 50px -20px rgba(20,34,106,0.20);
   }
 
   .btn-primary {
     @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-white transition-all;
-    background: #0057B7;
+    background: linear-gradient(120deg, #14226A 0%, #6929E0 55%, #0F6EFF 100%);
+    box-shadow: 0 10px 26px -10px rgba(105,41,224,0.45);
   }
-  .btn-primary:hover { background: #003E85; transform: translateY(-1px); box-shadow: 0 14px 30px -12px rgba(0,87,183,0.5); }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 14px 34px -10px rgba(15,110,255,0.55); }
 
   .btn-outline {
     @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition-all;
-    color: #0B1F3A; border: 1px solid #CBD5E1; background: #FFFFFF;
+    color: #14226A; border: 1px solid #CBD5E1; background: #FFFFFF;
   }
-  .btn-outline:hover { border-color: #0B1F3A; background: #F8FAFC; }
+  .btn-outline:hover { border-color: #14226A; background: #F5F7FF; }
   .dark .btn-outline { color: #E2E8F0; background: transparent; border-color: rgba(255,255,255,0.15); }
   .dark .btn-outline:hover { background: rgba(255,255,255,0.05); }
 
   .eyebrow {
-    @apply inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-brand;
+    @apply inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em];
+    color: #6929E0;
   }
-  .eyebrow::before { content:''; display:inline-block; width:22px; height:2px; background:#0057B7; }
-
-  .divider-soft { border-top: 1px solid rgba(203,213,225,0.6); }
+  .eyebrow::before { content:''; display:inline-block; width:22px; height:2px; background: linear-gradient(90deg,#6929E0,#0F6EFF); border-radius:2px; }
 
   .hero-grid {
     background-image:
-      linear-gradient(rgba(11,31,58,0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(11,31,58,0.05) 1px, transparent 1px);
+      linear-gradient(rgba(20,34,106,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(20,34,106,0.06) 1px, transparent 1px);
     background-size: 60px 60px;
   }
   .dark .hero-grid {
@@ -129,4 +148,10 @@
     to { transform: translateX(-50%); }
   }
   .marquee { animation: marquee 45s linear infinite; }
+
+  @keyframes float-y {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .float-y { animation: float-y 6s ease-in-out infinite; }
 }

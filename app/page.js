@@ -1,19 +1,20 @@
 'use client'
 import SiteLayout from '@/components/site/Layout'
 import Hero from '@/components/site/Hero'
-import { TrustBar, WhyAsanyx, ServicesOverview, IndustriesGrid, TechnologiesSection, EngagementModels, WhyClientsChoose, DeliveryProcess, LeadershipTeaser, CaseStudiesGrid, CTABand } from '@/components/site/Sections'
+import { CredibilityStrip, PrimaryOfferingsSection, MigrationServicesSection, WhyAsanyx, ServicesOverview, IndustriesGrid, TechnologiesSection, EngagementModels, DeliveryProcess, CaseStudiesGrid, LeadershipTeaser, CTABand } from '@/components/site/Sections'
 
 function Home() {
   return (
     <SiteLayout>
       <Hero />
-      <TrustBar />
-      <WhyAsanyx />
+      <CredibilityStrip />
+      <PrimaryOfferingsSection />
+      <MigrationServicesSection />
       <ServicesOverview />
-      <IndustriesGrid compact />
       <TechnologiesSection />
       <EngagementModels />
-      <WhyClientsChoose />
+      <IndustriesGrid />
+      <WhyAsanyx />
       <DeliveryProcess />
       <CaseStudiesGrid limit={3} />
       <LeadershipTeaser />
