@@ -1,40 +1,55 @@
 'use client'
 import SiteLayout from '@/components/site/Layout'
-import { SectionHeader } from '@/components/site/Section'
+import { SectionHead, CTABand } from '@/components/site/Sections'
 import { services } from '@/lib/site'
-import { ServicesGrid, CTABanner } from '@/components/site/Sections'
-import { CheckCircle2 } from 'lucide-react'
+import * as Icons from 'lucide-react'
+import Link from 'next/link'
 
 export default function ServicesPage() {
   return (
     <SiteLayout>
-      <div className="pt-32 pb-8 bg-hero-mesh">
-        <div className="mx-auto max-w-7xl px-6">
-          <SectionHeader eyebrow="Our Services" title="Data & AI capabilities, engineered for scale" subtitle="A single partner for BI, engineering, analytics, AI and governance." />
+      <section className="bg-navy-50 dark:bg-slate-900/30 py-16 lg:py-24 border-b border-slate-200 dark:border-white/10">
+        <div className="container-x">
+          <div className="eyebrow">Our Services</div>
+          <h1 className="mt-4 text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white max-w-3xl">End-to-end BI, data engineering and AI services</h1>
+          <p className="mt-5 text-lg text-slate-600 dark:text-slate-300 max-w-2xl">Consulting, delivery, staff augmentation and managed services across the modern data stack - engineered for enterprise scale.</p>
+          <div className="mt-8 flex flex-wrap gap-2">
+            {services.map(s => <a key={s.slug} href={`#${s.slug}`} className="btn-outline !py-2 !px-4 !text-[13px]">{s.title}</a>)}
+          </div>
         </div>
-      </div>
-      <ServicesGrid />
-      <section className="py-16">
-        <div className="mx-auto max-w-7xl px-6 space-y-14">
-          {services.map(s => (
-            <div key={s.slug} id={s.slug} className="grid md:grid-cols-3 gap-8 items-start">
-              <div>
-                <h3 className="text-2xl font-bold">{s.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{s.description}</p>
+      </section>
+
+      {services.map((s, i) => {
+        const Icon = Icons[s.icon] || Icons.Circle
+        return (
+          <section key={s.slug} id={s.slug} className={`py-16 lg:py-24 ${i % 2 === 0 ? 'bg-white dark:bg-slate-950' : 'bg-navy-50 dark:bg-slate-900/30'}`}>
+            <div className="container-x grid lg:grid-cols-12 gap-10">
+              <div className="lg:col-span-4">
+                <div className="w-12 h-12 rounded-lg bg-[#EAF0F8] dark:bg-white/5 text-brand grid place-items-center"><Icon className="w-6 h-6" /></div>
+                <h2 className="mt-5 text-3xl font-bold text-slate-900 dark:text-white">{s.title}</h2>
+                <p className="mt-3 text-slate-600 dark:text-slate-300 leading-relaxed">{s.tagline}</p>
+                <Link href="/contact" className="mt-6 btn-primary">Discuss a {s.title.toLowerCase()} engagement <Icons.ArrowRight className="w-4 h-4" /></Link>
               </div>
-              <div className="md:col-span-2 grid sm:grid-cols-2 gap-2">
-                {s.items.map(i => (
-                  <div key={i} className="flex items-center gap-2 rounded-xl px-3 py-2 glass">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-                    <span className="text-sm">{i}</span>
+              <div className="lg:col-span-8 space-y-8">
+                {s.groups.map(g => (
+                  <div key={g.name}>
+                    <div className="text-[10px] font-semibold uppercase tracking-widest text-brand">{g.name}</div>
+                    <div className="mt-3 grid sm:grid-cols-2 gap-2">
+                      {g.items.map(item => (
+                        <div key={item} className="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 px-3.5 py-2.5">
+                          <Icons.Check className="w-4 h-4 text-brand shrink-0" />
+                          <span className="text-sm text-slate-700 dark:text-slate-200">{item}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
-          ))}
-        </div>
-      </section>
-      <CTABanner />
+          </section>
+        )
+      })}
+      <CTABand />
     </SiteLayout>
   )
 }
