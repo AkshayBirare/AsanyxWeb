@@ -59,7 +59,7 @@ export function PrimaryOfferingsSection() {
 
 export function WhyAsanyx() {
   return (
-    <section className="py-20 lg:py-28 bg-[#F5F7FF] dark:bg-slate-900/30">
+    <section className="py-20 lg:py-28 bg-section-alt">
       <div className="container-x">
         <SectionHead eyebrow="Why ASANYX" title="Enterprise-grade delivery, without enterprise-grade overhead" subtitle="The disciplines and standards of a top-tier consulting practice - in a focused boutique team." />
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -123,7 +123,7 @@ export function MigrationServicesSection() {
 
 export function ServicesOverview() {
   return (
-    <section className="py-20 lg:py-28 bg-[#F5F7FF] dark:bg-slate-900/30">
+    <section className="py-20 lg:py-28 bg-section-alt">
       <div className="container-x">
         <SectionHead eyebrow="Services" title="Consulting, delivery, resources and managed services" subtitle="Explore how ASANYX Analytics helps organizations design, build and operate modern data platforms." />
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -165,7 +165,7 @@ export function IndustriesGrid() {
 
 export function TechnologiesSection() {
   return (
-    <section className="py-20 lg:py-28 bg-[#F5F7FF] dark:bg-slate-900/30">
+    <section className="py-20 lg:py-28 bg-section-alt">
       <div className="container-x">
         <SectionHead eyebrow="Technologies" title="Built on the leading enterprise data platforms" subtitle="We deliver on the industry-standard technologies powering modern BI and cloud analytics." />
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
@@ -220,7 +220,7 @@ export function EngagementModels() {
 
 export function DeliveryProcess() {
   return (
-    <section className="py-20 lg:py-28 bg-[#F5F7FF] dark:bg-slate-900/30">
+    <section className="py-20 lg:py-28 bg-section-alt">
       <div className="container-x">
         <SectionHead eyebrow="Our Delivery Process" title="A repeatable, disciplined approach" subtitle="Seven stages keeping every engagement on track from first conversation to ongoing support." />
         <div className="grid gap-3">
@@ -275,7 +275,7 @@ function Item({ label, text, highlight }) {
 
 export function LeadershipTeaser() {
   return (
-    <section className="py-20 bg-[#F5F7FF] dark:bg-slate-900/30">
+    <section className="py-20 bg-section-alt">
       <div className="container-x">
         <div className="card-corp p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center gap-8 justify-between">
           <div>

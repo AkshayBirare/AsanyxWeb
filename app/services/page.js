@@ -8,7 +8,7 @@ import Link from 'next/link'
 export default function ServicesPage() {
   return (
     <SiteLayout>
-      <section className="bg-[#F5F7FF] dark:bg-slate-900/30 py-16 lg:py-24 border-b border-slate-200 dark:border-white/10">
+      <section className="bg-section-alt py-16 lg:py-24 border-b border-slate-200 dark:border-white/10">
         <div className="container-x">
           <div className="eyebrow">Our Services</div>
           <h1 className="mt-4 text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white max-w-3xl">End-to-end BI, data engineering and analytics services</h1>
@@ -24,7 +24,7 @@ export default function ServicesPage() {
       {services.filter(s => s.slug !== 'migration-services').map((s, i) => {
         const Icon = Icons[s.icon] || Icons.Circle
         return (
-          <section key={s.slug} id={s.slug} className={`py-16 lg:py-24 ${i % 2 === 0 ? 'bg-[#F5F7FF] dark:bg-slate-900/30' : 'bg-white dark:bg-slate-950'}`}>
+          <section key={s.slug} id={s.slug} className={`py-16 lg:py-24 ${i % 2 === 0 ? 'bg-section-alt' : 'bg-white dark:bg-slate-950'}`}>
             <div className="container-x grid lg:grid-cols-12 gap-10">
               <div className="lg:col-span-4">
                 <div className="w-12 h-12 rounded-lg bg-brand-tint text-brand-violet grid place-items-center"><Icon className="w-6 h-6" /></div>

@@ -7,7 +7,7 @@ import { Linkedin, CheckCircle2 } from 'lucide-react'
 export default function LeadershipPage() {
   return (
     <SiteLayout>
-      <section className="bg-[#F5F7FF] dark:bg-slate-900/30 py-16 lg:py-24 border-b border-slate-200 dark:border-white/10">
+      <section className="bg-section-alt py-16 lg:py-24 border-b border-slate-200 dark:border-white/10">
         <div className="container-x">
           <div className="eyebrow">Leadership</div>
           <h1 className="mt-4 text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white max-w-3xl">Led by hands-on practitioners</h1>
