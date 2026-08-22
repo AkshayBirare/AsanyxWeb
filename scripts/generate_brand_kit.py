@@ -33,24 +33,32 @@ OUT_DOC_DIR = "/app/public/brand/documents"
 os.makedirs(OUT_LOGO_DIR, exist_ok=True)
 os.makedirs(OUT_DOC_DIR, exist_ok=True)
 
+# Official ASANYX Analytics brand palette (from asanyx_brand_colors.json)
 BRAND = {
-    "deep_blue":   (10, 37, 64),     # #0A2540 — Headings / primary
-    "brand_blue":  (30, 107, 255),   # #1E6BFF — CTA / links
-    "cyan":        (6, 214, 224),    # #06D6E0 — accent
-    "emerald":     (16, 185, 129),   # #10B981 — success
+    "deep_blue":   (11, 42, 107),    # #0B2A6B — Asanyx Navy (primary, headings)
+    "brand_blue":  (18, 87, 199),    # #1257C7 — Asanyx Blue (CTA, links)
+    "cyan":        (18, 182, 232),   # #12B6E8 — Signal Cyan (accent)
+    "emerald":     (5, 150, 105),    # #059669 — Emerald (success)
+    "gold":        (184, 134, 11),   # #B8860B — Gold
+    "violet":      (124, 58, 237),   # #7C3AED — Violet
+    "rose":        (225, 29, 72),    # #E11D48 — Rose
+    "monochrome":  (113, 113, 122),  # #71717A — Monochrome
     "white":       (255, 255, 255),
-    "soft_grey":   (246, 249, 252),
-    "border":      (226, 232, 240),
-    "muted":       (100, 116, 139),
-    "text_dark":   (15, 23, 42),
+    "paper":       (247, 249, 252),  # #F7F9FC — Paper White
+    "border":      (222, 228, 240),  # #DEE4F0 — Border Gray
+    "muted":       (107, 122, 153),  # #6B7A99 — Slate Gray
+    "text_dark":   (11, 27, 58),     # #0B1B3A — Ink
+    "midnight":    (6, 11, 26),      # #060B1A — Midnight
 }
+# Backwards-compat alias
+BRAND["soft_grey"] = BRAND["paper"]
 
 COMPANY = {
     "name":     "ASANYX ANALYTICS PRIVATE LIMITED",
     "tagline":  "Turning data into decisions that drive growth",
     "website":  "www.asanyxanalytics.com",
     "email":    "hello@asanyxanalytics.com",
-    "phone":    "+91 00000 00000",
+    "phone":    "+91 8468982682",
     "address":  "India · Global Delivery",
 }
 
@@ -508,16 +516,11 @@ def generate_pptx():
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    print("[1/3] Generating logo variations …")
-    logos = generate_logos()
-    for l in logos:
-        print("   ✓", l)
-
-    print("[2/3] Generating Word letterhead …")
+    print("[1/2] Generating Word letterhead …")
     doc_path = generate_letterhead()
     print("   ✓", doc_path)
 
-    print("[3/3] Generating PowerPoint template …")
+    print("[2/2] Generating PowerPoint template …")
     ppt_path = generate_pptx()
     print("   ✓", ppt_path)
 

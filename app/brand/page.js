@@ -9,29 +9,50 @@ import { toast } from 'sonner'
 
 const PALETTE = {
   primary: [
-    { name: 'Deep Blue', hex: '#0A2540', rgb: '10, 37, 64', use: 'Headings, primary brand' },
-    { name: 'Brand Blue', hex: '#1E6BFF', rgb: '30, 107, 255', use: 'Primary CTA, links' },
-    { name: 'Cyan Accent', hex: '#06D6E0', rgb: '6, 214, 224', use: 'Gradients, highlights' },
-    { name: 'Emerald', hex: '#10B981', rgb: '16, 185, 129', use: 'Success, positive metrics' },
+    { name: 'Asanyx Navy',   hex: '#0B2A6B', rgb: '11, 42, 107',   use: 'Primary · headings · wordmark "ASANYX"' },
+    { name: 'Asanyx Blue',   hex: '#1257C7', rgb: '18, 87, 199',   use: 'Secondary · links · wordmark "ANALYTICS"' },
+    { name: 'Signal Cyan',   hex: '#12B6E8', rgb: '18, 182, 232',  use: 'Accent · highlights · data bars · icons' },
+    { name: 'Ink',           hex: '#0B1B3A', rgb: '11, 27, 58',    use: 'Body text on light backgrounds' },
   ],
   neutral: [
-    { name: 'Pure White', hex: '#FFFFFF', rgb: '255, 255, 255', use: 'Backgrounds' },
-    { name: 'Soft Grey', hex: '#F6F9FC', rgb: '246, 249, 252', use: 'Section backgrounds' },
-    { name: 'Border Grey', hex: '#E2E8F0', rgb: '226, 232, 240', use: 'Dividers, borders' },
-    { name: 'Muted', hex: '#64748B', rgb: '100, 116, 139', use: 'Secondary text' },
-    { name: 'Text Dark', hex: '#0F172A', rgb: '15, 23, 42', use: 'Body text' },
+    { name: 'Paper White',   hex: '#F7F9FC', rgb: '247, 249, 252', use: 'Light backgrounds · letterhead · cards' },
+    { name: 'Border Gray',   hex: '#DEE4F0', rgb: '222, 228, 240', use: 'Dividers · table borders · card outlines' },
+    { name: 'Slate Gray',    hex: '#6B7A99', rgb: '107, 122, 153', use: 'Secondary text · captions · tagline' },
+    { name: 'Midnight',      hex: '#060B1A', rgb: '6, 11, 26',     use: 'Dark backgrounds · dark-mode decks · dark wallpaper' },
+    { name: 'Pure White',    hex: '#FFFFFF', rgb: '255, 255, 255', use: 'Backgrounds' },
+  ],
+  extended: [
+    { name: 'Gold',       hex: '#B8860B', rgb: '184, 134, 11',  use: 'Alt brand mark · premium tier · awards' },
+    { name: 'Violet',     hex: '#7C3AED', rgb: '124, 58, 237',  use: 'Alt brand mark · data science offerings' },
+    { name: 'Emerald',    hex: '#059669', rgb: '5, 150, 105',   use: 'Alt brand mark · growth & success states' },
+    { name: 'Rose',       hex: '#E11D48', rgb: '225, 29, 72',   use: 'Alt brand mark · alerts · negative variance' },
+    { name: 'Monochrome', hex: '#71717A', rgb: '113, 113, 122', use: 'Alt brand mark · neutral · print-safe' },
   ],
 }
 
 const LOGO_PACK = [
-  { file: 'asanyx-logo-horizontal-color.png',       label: 'Horizontal · Color',       usage: 'Website, decks, marketing', bg: 'bg-white' },
-  { file: 'asanyx-logo-horizontal-on-white.png',    label: 'Horizontal · On White',    usage: 'Documents, letters, invoices', bg: 'bg-white' },
-  { file: 'asanyx-logo-horizontal-on-dark.png',     label: 'Horizontal · On Dark',     usage: 'Dark UI, video, banners', bg: 'bg-[#0A2540]' },
-  { file: 'asanyx-logo-horizontal-mono-black.png',  label: 'Horizontal · Mono Black',  usage: 'Print, black & white docs', bg: 'bg-white' },
-  { file: 'asanyx-mark-color.png',                  label: 'Mark · Color (Transparent)', usage: 'App icon, avatar overlay', bg: 'bg-white' },
-  { file: 'asanyx-mark-on-white.png',               label: 'Mark · On White',          usage: 'LinkedIn profile picture',   bg: 'bg-white' },
-  { file: 'asanyx-mark-on-dark.png',                label: 'Mark · On Dark',           usage: 'Dark theme avatar, video',   bg: 'bg-[#0A2540]' },
-  { file: 'asanyx-favicon-256.png',                 label: 'Favicon · 256×256',        usage: 'Browser tab, PWA icon',      bg: 'bg-white' },
+  { file: 'asanyx-logo-horizontal-color.png',       label: 'Horizontal · Signature',    usage: 'Website, decks, marketing',       bg: 'bg-white' },
+  { file: 'asanyx-logo-horizontal-on-white.png',    label: 'Horizontal · On White',     usage: 'Documents, letters, invoices',    bg: 'bg-white' },
+  { file: 'asanyx-logo-horizontal-on-dark.png',     label: 'Horizontal · On Dark',      usage: 'Dark UI, video, banners',         bg: 'bg-[#060B1A]' },
+  { file: 'asanyx-logo-horizontal-mono-black.png',  label: 'Horizontal · Ink Mono',     usage: 'Print, black & white docs',       bg: 'bg-white' },
+  { file: 'asanyx-mark-color.png',                  label: 'Mark · Signature (transparent)', usage: 'App icon, avatar overlay',   bg: 'bg-white' },
+  { file: 'asanyx-mark-on-white.png',               label: 'Mark · On White',           usage: 'LinkedIn profile picture',        bg: 'bg-white' },
+  { file: 'asanyx-mark-on-dark.png',                label: 'Mark · On Dark',            usage: 'Dark theme avatar, video',        bg: 'bg-[#060B1A]' },
+  { file: 'asanyx-favicon-256.png',                 label: 'Favicon · 256×256',         usage: 'Browser tab, PWA icon',           bg: 'bg-white' },
+]
+
+const MARK_VARIATIONS = [
+  { file: 'asanyx-mark-signature.png',  label: 'Signature',  hex: '#1257C7' },
+  { file: 'asanyx-mark-gold.png',       label: 'Gold',       hex: '#B8860B' },
+  { file: 'asanyx-mark-violet.png',     label: 'Violet',     hex: '#7C3AED' },
+  { file: 'asanyx-mark-emerald.png',    label: 'Emerald',    hex: '#059669' },
+  { file: 'asanyx-mark-rose.png',       label: 'Rose',       hex: '#E11D48' },
+  { file: 'asanyx-mark-monochrome.png', label: 'Monochrome', hex: '#71717A' },
+]
+
+const WALLPAPERS = [
+  { file: 'asanyx-wallpaper-light-4k.webp', label: '4K Wallpaper · Light', usage: 'Zoom / Teams background · Paper White',   theme: 'light' },
+  { file: 'asanyx-wallpaper-dark-4k.webp',  label: '4K Wallpaper · Dark',  usage: 'Zoom / Teams background · Midnight',      theme: 'dark' },
 ]
 
 const DOC_PACK = [
@@ -71,27 +92,27 @@ function Copyable({ text, children }) {
 function LinkedInBanner() {
   return (
     <div className="relative w-full" style={{ aspectRatio: '1584 / 396' }}>
-      <div className="absolute inset-0 rounded-2xl overflow-hidden shadow-brand" style={{ background: 'linear-gradient(120deg, #0A2540 0%, #123A6E 40%, #1E6BFF 75%, #06D6E0 100%)' }}>
+      <div className="absolute inset-0 rounded-2xl overflow-hidden shadow-brand" style={{ background: 'linear-gradient(120deg, #060B1A 0%, #0B2A6B 40%, #1257C7 75%, #12B6E8 100%)' }}>
         {/* Grid pattern */}
         <div className="absolute inset-0 opacity-[0.15]" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)', backgroundSize: '50px 50px' }} />
         {/* Glow orbs */}
-        <div className="absolute -top-32 -left-20 w-[500px] h-[500px] rounded-full blur-3xl opacity-40" style={{ background: 'radial-gradient(circle, #06D6E0 0%, transparent 60%)' }} />
-        <div className="absolute -bottom-24 right-1/4 w-[400px] h-[400px] rounded-full blur-3xl opacity-40" style={{ background: 'radial-gradient(circle, #10B981 0%, transparent 60%)' }} />
-        <div className="absolute top-1/4 right-10 w-[350px] h-[350px] rounded-full blur-3xl opacity-30" style={{ background: 'radial-gradient(circle, #1E6BFF 0%, transparent 60%)' }} />
+        <div className="absolute -top-32 -left-20 w-[500px] h-[500px] rounded-full blur-3xl opacity-40" style={{ background: 'radial-gradient(circle, #12B6E8 0%, transparent 60%)' }} />
+        <div className="absolute -bottom-24 right-1/4 w-[400px] h-[400px] rounded-full blur-3xl opacity-40" style={{ background: 'radial-gradient(circle, #059669 0%, transparent 60%)' }} />
+        <div className="absolute top-1/4 right-10 w-[350px] h-[350px] rounded-full blur-3xl opacity-30" style={{ background: 'radial-gradient(circle, #1257C7 0%, transparent 60%)' }} />
 
         {/* Circuit lines SVG */}
         <svg className="absolute inset-0 w-full h-full opacity-30" viewBox="0 0 1584 396" preserveAspectRatio="xMidYMid slice">
           <defs>
             <linearGradient id="line1" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor="#06D6E0" stopOpacity="0" />
-              <stop offset="50%" stopColor="#06D6E0" stopOpacity="1" />
-              <stop offset="100%" stopColor="#06D6E0" stopOpacity="0" />
+              <stop offset="0%" stopColor="#12B6E8" stopOpacity="0" />
+              <stop offset="50%" stopColor="#12B6E8" stopOpacity="1" />
+              <stop offset="100%" stopColor="#12B6E8" stopOpacity="0" />
             </linearGradient>
           </defs>
           <path d="M0,120 Q400,60 800,180 T1584,140" fill="none" stroke="url(#line1)" strokeWidth="1.5" />
           <path d="M0,260 Q500,320 900,220 T1584,280" fill="none" stroke="url(#line1)" strokeWidth="1.5" />
           {[...Array(20)].map((_, i) => (
-            <circle key={i} cx={i * 90 + 50} cy={i % 2 ? 120 : 260} r="2.5" fill="#06D6E0" opacity="0.6" />
+            <circle key={i} cx={i * 90 + 50} cy={i % 2 ? 120 : 260} r="2.5" fill="#12B6E8" opacity="0.6" />
           ))}
         </svg>
 
@@ -99,12 +120,12 @@ function LinkedInBanner() {
         <div className="relative h-full flex items-center px-[6%]">
           <div className="flex-1">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full backdrop-blur-sm bg-white/10 border border-white/20">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+              <span className="w-1.5 h-1.5 rounded-full" style={{ background: '#12B6E8' }} />
               <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/90">Data · Insights · AI · Intelligence</span>
             </div>
             <h2 className="mt-4 text-white font-bold tracking-tight leading-[1.05]" style={{ fontFamily: 'Space Grotesk, Inter, sans-serif', fontSize: 'clamp(28px, 4.5vw, 64px)' }}>
               Transforming Data into<br/>
-              <span style={{ background: 'linear-gradient(120deg, #06D6E0 0%, #10B981 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Intelligent Business Decisions</span>
+              <span style={{ background: 'linear-gradient(120deg, #12B6E8 0%, #059669 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Intelligent Business Decisions</span>
             </h2>
             <div className="mt-4 flex items-center gap-5 text-white/70 text-[13px] font-medium">
               <span>Power BI</span>
@@ -126,16 +147,16 @@ function LinkedInBanner() {
             <div className="absolute inset-0 flex flex-col gap-3 items-end">
               <div className="w-56 rounded-xl backdrop-blur-md bg-white/10 border border-white/20 p-3 -rotate-2">
                 <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 rounded-md bg-gradient-to-br from-cyan-400 to-emerald-400" />
+                  <div className="w-6 h-6 rounded-md" style={{ background: 'linear-gradient(135deg, #12B6E8, #059669)' }} />
                   <div className="flex-1">
                     <div className="h-1.5 rounded-full bg-white/30 w-16" />
                     <div className="h-1 mt-1 rounded-full bg-white/15 w-10" />
                   </div>
-                  <div className="text-emerald-300 text-xs font-bold">+24%</div>
+                  <div className="text-xs font-bold" style={{ color: '#12B6E8' }}>+24%</div>
                 </div>
                 <div className="mt-2 h-8 relative">
                   <svg viewBox="0 0 100 30" className="absolute inset-0 w-full h-full">
-                    <path d="M0,25 C20,15 40,20 60,10 S90,5 100,8" fill="none" stroke="#06D6E0" strokeWidth="1.5" />
+                    <path d="M0,25 C20,15 40,20 60,10 S90,5 100,8" fill="none" stroke="#12B6E8" strokeWidth="1.5" />
                   </svg>
                 </div>
               </div>
@@ -143,7 +164,7 @@ function LinkedInBanner() {
                 <div className="text-[9px] text-white/60 uppercase tracking-wider">Revenue</div>
                 <div className="text-white font-bold">₹8.42Cr</div>
                 <div className="mt-1 h-1 rounded-full bg-white/15 overflow-hidden">
-                  <div className="h-full w-3/4 rounded-full bg-gradient-to-r from-cyan-400 to-emerald-400" />
+                  <div className="h-full w-3/4 rounded-full" style={{ background: 'linear-gradient(90deg, #12B6E8, #059669)' }} />
                 </div>
               </div>
             </div>
@@ -151,7 +172,7 @@ function LinkedInBanner() {
         </div>
 
         {/* Bottom brand strip */}
-        <div className="absolute bottom-0 left-0 right-0 h-1" style={{ background: 'linear-gradient(90deg, #06D6E0, #1E6BFF, #10B981)' }} />
+        <div className="absolute bottom-0 left-0 right-0 h-1" style={{ background: 'linear-gradient(90deg, #12B6E8, #1257C7, #059669)' }} />
       </div>
     </div>
   )
@@ -159,10 +180,10 @@ function LinkedInBanner() {
 
 function LinkedInLogoTile() {
   return (
-    <div className="relative aspect-square rounded-2xl overflow-hidden shadow-brand" style={{ background: 'linear-gradient(135deg, #0A2540 0%, #1E6BFF 100%)' }}>
+    <div className="relative aspect-square rounded-2xl overflow-hidden shadow-brand" style={{ background: 'linear-gradient(135deg, #060B1A 0%, #0B2A6B 55%, #1257C7 100%)' }}>
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="w-4/5 aspect-square rounded-2xl bg-white grid place-items-center p-6">
-          <Image src={site.logo} alt="ASANYX" width={280} height={280} className="object-contain w-full h-full" />
+          <Image src={site.logoMark} alt="ASANYX" width={280} height={280} className="object-contain w-full h-full" />
         </div>
       </div>
     </div>
@@ -215,8 +236,8 @@ export default function BrandPage() {
             </div>
             <div>
               <div className="text-xs text-muted-foreground mb-1.5">Logo tile — Dark</div>
-              <div className="aspect-square rounded-2xl overflow-hidden shadow-brand grid place-items-center p-8" style={{ background: '#0A2540' }}>
-                <Image src={site.logo} alt="ASANYX" width={400} height={400} className="object-contain w-full h-full brightness-[1.6]" />
+              <div className="aspect-square rounded-2xl overflow-hidden shadow-brand grid place-items-center p-8" style={{ background: '#060B1A' }}>
+                <Image src={site.logoOnDark || site.logo} alt="ASANYX" width={400} height={400} className="object-contain w-full h-full" />
               </div>
             </div>
           </div>
@@ -279,10 +300,61 @@ export default function BrandPage() {
               ))}
             </div>
           </div>
+          {/* Mark color variations */}
+          <div className="mt-10">
+            <div className="flex items-center gap-2 mb-4">
+              <ImageIcon className="w-4 h-4 text-blue-600 dark:text-cyan-400" />
+              <div className="text-xs uppercase tracking-widest text-muted-foreground font-semibold">Mark Variations · 6 colors</div>
+            </div>
+            <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
+              {MARK_VARIATIONS.map(v => (
+                <div key={v.file} className="group rounded-2xl overflow-hidden border border-border/60 bg-card/60">
+                  <div className="relative aspect-square bg-white grid place-items-center p-4">
+                    <img src={`/brand/logos/${v.file}`} alt={v.label} className="max-w-full max-h-full object-contain" />
+                  </div>
+                  <div className="p-3 border-t border-border/50">
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: v.hex }} />
+                      <div className="text-[12px] font-semibold leading-tight">{v.label}</div>
+                    </div>
+                    <div className="text-[10px] text-muted-foreground mt-0.5 font-mono">{v.hex}</div>
+                    <a href={`/brand/logos/${v.file}`} download className="mt-2 inline-flex items-center gap-1 text-[10px] font-semibold text-blue-600 dark:text-cyan-400 hover:gap-1.5 transition-all">
+                      Download <Download className="w-2.5 h-2.5" />
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Wallpapers */}
+          <div className="mt-10">
+            <div className="flex items-center gap-2 mb-4">
+              <ImageIcon className="w-4 h-4 text-blue-600 dark:text-cyan-400" />
+              <div className="text-xs uppercase tracking-widest text-muted-foreground font-semibold">4K Wallpapers · Zoom / Teams backgrounds</div>
+            </div>
+            <div className="grid md:grid-cols-2 gap-4">
+              {WALLPAPERS.map(w => (
+                <div key={w.file} className="group rounded-2xl overflow-hidden border border-border/60 bg-card/60">
+                  <div className="relative aspect-video overflow-hidden">
+                    <img src={`/brand/wallpapers/${w.file}`} alt={w.label} className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.02] transition duration-500" />
+                    <div className={`absolute top-2 left-2 text-[10px] px-2 py-0.5 rounded-full font-semibold ${w.theme === 'dark' ? 'bg-black/50 text-white' : 'bg-white/85 text-slate-900'}`}>{w.theme.toUpperCase()} · 4K</div>
+                  </div>
+                  <div className="p-4 border-t border-border/50 flex items-center justify-between gap-3">
+                    <div>
+                      <div className="text-[13px] font-semibold">{w.label}</div>
+                      <div className="text-[11px] text-muted-foreground mt-0.5">{w.usage}</div>
+                    </div>
+                    <a href={`/brand/wallpapers/${w.file}`} download className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-semibold text-white shrink-0" style={{ background: '#0B2A6B' }}>
+                      <Download className="w-3 h-3" /> WEBP
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
-
-      {/* Color Palette */}
       <section className="py-14">
         <div className="mx-auto max-w-7xl px-6">
           <h3 className="text-2xl font-bold">Color Palette</h3>
@@ -323,30 +395,46 @@ export default function BrandPage() {
             </div>
           </div>
 
+          <div className="mt-8">
+            <div className="text-xs uppercase tracking-widest text-muted-foreground mb-3">Extended · Alt Mark Colors</div>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+              {PALETTE.extended.map(c => (
+                <div key={c.hex} className="rounded-2xl overflow-hidden glass card-hover">
+                  <div className="h-24" style={{ background: c.hex }} />
+                  <div className="p-4">
+                    <div className="font-semibold text-sm">{c.name}</div>
+                    <div className="mt-1"><Copyable text={c.hex}><span>{c.hex}</span></Copyable></div>
+                    <div className="text-[11px] text-muted-foreground mt-2">{c.use}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
           <div className="mt-10">
             <div className="text-xs uppercase tracking-widest text-muted-foreground mb-3">Signature Gradients</div>
             <div className="grid md:grid-cols-3 gap-4">
               <div className="rounded-2xl overflow-hidden glass">
-                <div className="h-32" style={{ background: 'linear-gradient(120deg, #0A2540 0%, #1E6BFF 55%, #06D6E0 100%)' }} />
+                <div className="h-32" style={{ background: 'linear-gradient(120deg, #0B2A6B 0%, #1257C7 55%, #12B6E8 100%)' }} />
                 <div className="p-4">
                   <div className="font-semibold text-sm">Brand Gradient</div>
-                  <Copyable text="linear-gradient(120deg, #0A2540 0%, #1E6BFF 55%, #06D6E0 100%)"><span className="text-[11px]">Copy CSS</span></Copyable>
+                  <Copyable text="linear-gradient(120deg, #0B2A6B 0%, #1257C7 55%, #12B6E8 100%)"><span className="text-[11px]">Copy CSS</span></Copyable>
                   <div className="text-[11px] text-muted-foreground mt-1">Buttons, hero, banners</div>
                 </div>
               </div>
               <div className="rounded-2xl overflow-hidden glass">
-                <div className="h-32" style={{ background: 'linear-gradient(120deg, #10B981 0%, #06D6E0 100%)' }} />
+                <div className="h-32" style={{ background: 'linear-gradient(120deg, #059669 0%, #12B6E8 100%)' }} />
                 <div className="p-4">
                   <div className="font-semibold text-sm">Emerald Highlight</div>
-                  <Copyable text="linear-gradient(120deg, #10B981 0%, #06D6E0 100%)"><span className="text-[11px]">Copy CSS</span></Copyable>
+                  <Copyable text="linear-gradient(120deg, #059669 0%, #12B6E8 100%)"><span className="text-[11px]">Copy CSS</span></Copyable>
                   <div className="text-[11px] text-muted-foreground mt-1">Metrics, success states</div>
                 </div>
               </div>
               <div className="rounded-2xl overflow-hidden glass">
-                <div className="h-32" style={{ background: 'linear-gradient(120deg, #0A2540 0%, #123A6E 40%, #1E6BFF 75%, #06D6E0 100%)' }} />
+                <div className="h-32" style={{ background: 'linear-gradient(120deg, #060B1A 0%, #0B2A6B 40%, #1257C7 75%, #12B6E8 100%)' }} />
                 <div className="p-4">
                   <div className="font-semibold text-sm">LinkedIn Banner Gradient</div>
-                  <Copyable text="linear-gradient(120deg, #0A2540 0%, #123A6E 40%, #1E6BFF 75%, #06D6E0 100%)"><span className="text-[11px]">Copy CSS</span></Copyable>
+                  <Copyable text="linear-gradient(120deg, #060B1A 0%, #0B2A6B 40%, #1257C7 75%, #12B6E8 100%)"><span className="text-[11px]">Copy CSS</span></Copyable>
                   <div className="text-[11px] text-muted-foreground mt-1">Cover images, headers</div>
                 </div>
               </div>

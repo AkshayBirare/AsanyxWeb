@@ -20,15 +20,16 @@ LOGO_COLOR = "/app/public/brand/logos/asanyx-logo-horizontal-color.png"
 
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
 
-# Brand colours
-DEEP_BLUE  = HexColor("#0A2540")
-BRAND_BLUE = HexColor("#1E6BFF")
-CYAN       = HexColor("#06D6E0")
-EMERALD    = HexColor("#10B981")
-TEXT_DARK  = HexColor("#0F172A")
-MUTED      = HexColor("#64748B")
-BORDER     = HexColor("#E2E8F0")
-SOFT       = HexColor("#F6F9FC")
+# Brand colours — official ASANYX palette
+DEEP_BLUE  = HexColor("#0B2A6B")   # Asanyx Navy
+BRAND_BLUE = HexColor("#1257C7")   # Asanyx Blue
+CYAN       = HexColor("#12B6E8")   # Signal Cyan
+EMERALD    = HexColor("#059669")   # Emerald
+TEXT_DARK  = HexColor("#0B1B3A")   # Ink
+MUTED      = HexColor("#6B7A99")   # Slate Gray
+BORDER     = HexColor("#DEE4F0")   # Border Gray
+SOFT       = HexColor("#F7F9FC")   # Paper White
+MIDNIGHT   = HexColor("#060B1A")   # Midnight
 WHITE      = HexColor("#FFFFFF")
 
 
