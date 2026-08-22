@@ -209,6 +209,36 @@ backend:
           agent: "testing"
           comment: "✅ All tests passed. POST /api/resources/download validates title (400 if missing). Returns {ok:true} for valid requests. Email is optional. Saves to downloads collection."
 
+  - task: "Admin authentication (login/logout/session)"
+    implemented: true
+    working: true
+    file: "/app/app/api/[[...path]]/route.js, /app/lib/admin-auth.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "New endpoints - POST /api/admin/login (verifies against ADMIN_EMAIL + bcrypt of ADMIN_PASSWORD_HASH_B64, sets httpOnly JWT cookie 'asanyx_admin' signed with ADMIN_SESSION_SECRET using jose HS256, 8h expiry). POST /api/admin/logout (clears cookie). GET /api/admin/me (returns {ok:true, email} if valid session, 401 otherwise). Correct credentials: admin@asanyxanalytics.com / N_WglwMNmE-YR8iG-c-2 (also documented in /app/memory/test_credentials.md). Note: bcrypt hash is stored base64-encoded in .env (ADMIN_PASSWORD_HASH_B64) to avoid Next.js dotenv-expand mangling the $ characters."
+        - working: true
+          agent: "testing"
+          comment: "✅ All authentication tests passed. Created /app/admin_backend_test.py with comprehensive test suite. Verified: (1) Wrong password → 401 'Invalid credentials', (2) Wrong email → 401, (3) Empty body → 401, (4) Correct login → 200 + Set-Cookie with HttpOnly asanyx_admin cookie, (5) GET /api/admin/me without cookie → 401, (6) GET /api/admin/me with cookie → 200 + correct email, (7) Logout → 200 + cookie cleared (Max-Age=0), (8) GET /api/admin/me after logout → 401, (9) 5 repeated failed logins all returned 401 without crashes. Session management, JWT signing, bcrypt verification, and cookie handling all working correctly."
+
+  - task: "Admin data endpoint (protected)"
+    implemented: true
+    working: true
+    file: "/app/app/api/[[...path]]/route.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "GET /api/admin/data returns {ok:true, contacts:[], applications:[], newsletter:[], downloads:[], stats:{...}} - each collection capped at 500 most recent, _id stripped. Requires valid asanyx_admin cookie; returns 401 without it. Test: (1) hit without cookie → 401, (2) login → get cookie, (3) hit with cookie → 200 + all four collections + stats counts."
+        - working: true
+          agent: "testing"
+          comment: "✅ All protected data endpoint tests passed. Verified: (1) GET /api/admin/data without cookie → 401 'Unauthorized', (2) GET /api/admin/data with valid session cookie → 200 with proper structure containing contacts[], applications[], newsletter[], downloads[] arrays and stats{} object with numeric counts (contacts:3, applications:1, newsletter:1, downloads:1). Confirmed MongoDB _id fields are properly stripped from all collections. Authorization middleware working correctly."
+
 frontend:
   - task: "Home page hero & sections"
     implemented: true
@@ -237,7 +267,7 @@ frontend:
 metadata:
   created_by: "main_agent"
   version: "1.0"
-  test_sequence: 2
+  test_sequence: 3
   run_ui: false
 
 test_plan:
@@ -251,3 +281,7 @@ agent_communication:
     message: "Initial MVP built. Testing backend endpoints: contact, careers/apply, consultation, newsletter, resources/download. GET /api/ verified. POST /api/newsletter verified. Please test all backend endpoints end-to-end using JSON payloads and confirm MongoDB writes."
   - agent: "testing"
     message: "✅ BACKEND TESTING COMPLETE - All 7 API endpoints tested and working. Created /app/backend_test.py with comprehensive test suite. Results: GET /api/ ✅, GET /api/health ✅, POST /api/contact ✅ (with MongoDB verification), POST /api/consultation ✅, POST /api/newsletter ✅ (idempotent upsert verified), POST /api/careers/apply ✅, POST /api/resources/download ✅. All validation, error handling, and data persistence working correctly. No critical issues found. Backend is production-ready."
+  - agent: "main"
+    message: "New admin dashboard endpoints added. Please test only the two new tasks: 'Admin authentication (login/logout/session)' and 'Admin data endpoint (protected)'. Do NOT re-test the previously-verified endpoints. Test flow: (1) POST /api/admin/login with wrong password → 401, (2) POST /api/admin/login with correct creds (admin@asanyxanalytics.com / N_WglwMNmE-YR8iG-c-2) → 200 + Set-Cookie: asanyx_admin=..., (3) GET /api/admin/me without cookie → 401, (4) GET /api/admin/me with cookie → 200 + {ok:true, email:'admin@asanyxanalytics.com'}, (5) GET /api/admin/data without cookie → 401, (6) GET /api/admin/data with cookie → 200 with contacts/applications/newsletter/downloads arrays + stats object, (7) POST /api/admin/logout with cookie → 200 + Set-Cookie clears, (8) GET /api/admin/me after logout → 401. Please use requests.Session() to persist the httpOnly cookie between calls."
+  - agent: "testing"
+    message: "✅ ADMIN BACKEND TESTING COMPLETE - Both new admin endpoints tested and working perfectly. Created /app/admin_backend_test.py with comprehensive test suite covering all 10 test scenarios plus rate-limiting verification. Results: Admin authentication (login/logout/session) ✅ - all validation, JWT signing, bcrypt verification, httpOnly cookie handling working correctly. Admin data endpoint (protected) ✅ - proper authorization, data structure with all 4 collections + stats, MongoDB _id stripping verified. No critical issues found. All backend endpoints (9 total) are production-ready."

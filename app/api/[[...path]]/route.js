@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { MongoClient } from 'mongodb'
 import { v4 as uuidv4 } from 'uuid'
 import { sendEmails } from '@/lib/email'
+import { verifyCredentials, issueSessionCookie, clearSessionCookie, getSession } from '@/lib/admin-auth'
 
 const uri = process.env.MONGO_URL
 const dbName = process.env.DB_NAME || 'asanyx'
@@ -37,6 +38,38 @@ export async function GET(request, { params }) {
       const rows = await db.collection('contacts').find({}).sort({ createdAt: -1 }).limit(100).toArray()
       return ok({ items: rows.map(({ _id, ...r }) => r) })
     }
+
+    // ---------- Admin ----------
+    if (p === 'admin/me') {
+      const s = await getSession()
+      if (!s) return fail('Unauthorized', 401)
+      return ok({ email: s.email })
+    }
+    if (p === 'admin/data') {
+      const s = await getSession()
+      if (!s) return fail('Unauthorized', 401)
+      const db = await getDb()
+      const [contacts, applications, newsletter, downloads] = await Promise.all([
+        db.collection('contacts').find({}).sort({ createdAt: -1 }).limit(500).toArray(),
+        db.collection('applications').find({}).sort({ createdAt: -1 }).limit(500).toArray(),
+        db.collection('newsletter').find({}).sort({ createdAt: -1 }).limit(500).toArray(),
+        db.collection('downloads').find({}).sort({ createdAt: -1 }).limit(500).toArray(),
+      ])
+      const strip = (arr) => arr.map(({ _id, ...r }) => r)
+      return ok({
+        contacts: strip(contacts),
+        applications: strip(applications),
+        newsletter: strip(newsletter),
+        downloads: strip(downloads),
+        stats: {
+          contacts: contacts.length,
+          applications: applications.length,
+          newsletter: newsletter.length,
+          downloads: downloads.length,
+        }
+      })
+    }
+
     return fail('Not found', 404)
   } catch (e) {
     return fail(e.message || 'Server error', 500)
@@ -92,6 +125,19 @@ export async function POST(request, { params }) {
       const id = uuidv4()
       await db.collection('downloads').insertOne({ id, title, email: email || '', createdAt: new Date().toISOString() })
       sendEmails({ type: 'resources/download', submissionId: id, data: { title, email } }).catch(e => console.error(e))
+      return ok()
+    }
+
+    // ---------- Admin auth ----------
+    if (p === 'admin/login') {
+      const { email, password } = body
+      const valid = await verifyCredentials(email, password)
+      if (!valid) return fail('Invalid credentials', 401)
+      await issueSessionCookie(email)
+      return ok({ email })
+    }
+    if (p === 'admin/logout') {
+      await clearSessionCookie()
       return ok()
     }
 

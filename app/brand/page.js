@@ -35,8 +35,9 @@ const LOGO_PACK = [
 ]
 
 const DOC_PACK = [
-  { file: 'ASANYX_Letterhead.docx',   label: 'Corporate Letterhead',  format: 'Microsoft Word (.docx)',    icon: FileText,         desc: 'Branded letterhead with header logo, footer contact block and a ready-to-edit letter body.' },
-  { file: 'ASANYX_Presentation.pptx', label: 'Presentation Template', format: 'PowerPoint (.pptx) · 16:9', icon: PresentationIcon, desc: 'Five master slides — title, section header, 3-column content, two-column narrative and closing CTA.' },
+  { file: 'ASANYX_Letterhead.docx',           label: 'Corporate Letterhead',   format: 'Microsoft Word (.docx)',    icon: FileText,         desc: 'Branded letterhead with header logo, footer contact block and a ready-to-edit letter body.' },
+  { file: 'ASANYX_Presentation.pptx',         label: 'Presentation Template',  format: 'PowerPoint (.pptx) · 16:9', icon: PresentationIcon, desc: 'Five master slides — title, section header, 3-column content, two-column narrative and closing CTA.' },
+  { file: 'ASANYX_Company_One_Pager.pdf',     label: 'Company One-Pager',      format: 'PDF · A4',                  icon: FileText,         desc: 'Single-page pitch handout summarizing ASANYX practices, outcomes and why-us — drop into email or share with prospects.' },
 ]
 
 const IMAGES = [
@@ -234,7 +235,7 @@ export default function BrandPage() {
           </div>
 
           {/* Corporate documents */}
-          <div className="grid md:grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-3 gap-4">
             {DOC_PACK.map(d => {
               const Icon = d.icon
               return (
