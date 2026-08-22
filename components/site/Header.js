@@ -26,8 +26,8 @@ export default function Header() {
       <div className="container-x">
         <div className="flex items-center justify-between h-18 py-3">
           <Link href="/" className="flex items-center" aria-label="ASANYX Analytics">
-            <div className="relative w-[168px] h-10">
-              <Image src={site.logo} alt="ASANYX Analytics" fill className="object-contain object-left" priority sizes="168px" />
+            <div className="relative w-[200px] h-11">
+              <Image src={site.logo} alt="ASANYX Analytics" fill className="object-contain object-left" priority sizes="200px" />
             </div>
           </Link>
 

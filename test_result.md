@@ -264,6 +264,24 @@ frontend:
           agent: "main"
           comment: "Home, About, Services, Solutions, Industries, Technologies, Case Studies, Resources, Blog, Careers, Contact, Privacy, Terms, 404 all present."
 
+  - task: "Header logo visibility"
+    implemented: true
+    working: true
+    file: "/app/components/site/Header.js, /app/lib/site.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "user"
+          comment: "User reported: 'where is the logo on my site?' - logo was too small/unreadable in header."
+        - working: "NA"
+          agent: "main"
+          comment: "Fix applied: (1) Generated new header-optimized logo /brand/logos/asanyx-logo-header.png (mark + wordmark only, no tagline), (2) Updated site.logo in /app/lib/site.js to point to new file, (3) Increased header logo container from 168×40 to 200×44 in /app/components/site/Header.js."
+        - working: true
+          agent: "testing"
+          comment: "✅ Bug fix verified. All 7 tests passed: (1) Logo image loads correctly with 200 status, (2) Logo src correctly points to /brand/logos/asanyx-logo-header.png, (3) Logo container properly sized at 200×44 pixels (exceeds minimum 180×40), (4) Logo displays 'A|S' mark + 'ASANYX ANALYTICS' wordmark clearly without tagline, (5) Logo works correctly on interior pages (/about tested), (6) Logo remains visible and readable in dark mode, (7) No broken image icons or loading errors. Screenshots confirm logo is now prominently visible in header. User concern resolved."
+
 metadata:
   created_by: "main_agent"
   version: "1.0"
@@ -285,3 +303,7 @@ agent_communication:
     message: "New admin dashboard endpoints added. Please test only the two new tasks: 'Admin authentication (login/logout/session)' and 'Admin data endpoint (protected)'. Do NOT re-test the previously-verified endpoints. Test flow: (1) POST /api/admin/login with wrong password → 401, (2) POST /api/admin/login with correct creds (admin@asanyxanalytics.com / N_WglwMNmE-YR8iG-c-2) → 200 + Set-Cookie: asanyx_admin=..., (3) GET /api/admin/me without cookie → 401, (4) GET /api/admin/me with cookie → 200 + {ok:true, email:'admin@asanyxanalytics.com'}, (5) GET /api/admin/data without cookie → 401, (6) GET /api/admin/data with cookie → 200 with contacts/applications/newsletter/downloads arrays + stats object, (7) POST /api/admin/logout with cookie → 200 + Set-Cookie clears, (8) GET /api/admin/me after logout → 401. Please use requests.Session() to persist the httpOnly cookie between calls."
   - agent: "testing"
     message: "✅ ADMIN BACKEND TESTING COMPLETE - Both new admin endpoints tested and working perfectly. Created /app/admin_backend_test.py with comprehensive test suite covering all 10 test scenarios plus rate-limiting verification. Results: Admin authentication (login/logout/session) ✅ - all validation, JWT signing, bcrypt verification, httpOnly cookie handling working correctly. Admin data endpoint (protected) ✅ - proper authorization, data structure with all 4 collections + stats, MongoDB _id stripping verified. No critical issues found. All backend endpoints (9 total) are production-ready."
+  - agent: "main"
+    message: "User reported bug: 'where is the logo on my site?' - header logo was too small/unreadable. Applied fix: (1) Generated new header-optimized logo /brand/logos/asanyx-logo-header.png, (2) Updated site.logo in /app/lib/site.js, (3) Increased header logo container from 168×40 to 200×44. Please verify ONLY the header logo fix with minimal testing (7 checks max): logo loads, correct src, proper size, visible on home + one interior page, works in dark mode."
+  - agent: "testing"
+    message: "✅ HEADER LOGO BUG FIX VERIFIED - Focused test completed in <60 seconds. All 7 verification checks passed: Logo image loads with 200 status, src correctly points to /brand/logos/asanyx-logo-header.png, container sized at 200×44px (exceeds 180×40 minimum), displays mark + wordmark clearly without tagline, works on /about page, remains visible in dark mode. Screenshots confirm logo is now prominently visible. User concern 'where is the logo?' is resolved. No further testing needed for this fix."
