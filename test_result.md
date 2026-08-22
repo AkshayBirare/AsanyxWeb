@@ -251,6 +251,51 @@ backend:
           agent: "testing"
           comment: "✅ Security fix verified. All 3 checks passed: (1) GET /api/contacts without cookie → 401 with {ok:false, error:'Unauthorized'}, (2) POST /api/admin/login with correct credentials → 200 with Set-Cookie asanyx_admin, (3) GET /api/contacts with valid session cookie → 200 with {ok:true, items:[...]} containing 3 contact records. Anonymous access properly blocked, authenticated access working correctly. High-priority security vulnerability resolved."
 
+  - task: "SEC-002: Rate limiting + honeypot on public form endpoints"
+    implemented: true
+    working: true
+    file: "/app/app/api/[[...path]]/route.js, /app/lib/security.js"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Applied per-IP rate limit (8 req / 10 min) across contact, consultation, newsletter, careers/apply, resources/download. Admin login has its own stricter limit (5 / 15 min) — returns 429 after threshold with Retry-After header. Honeypot: any POST with `_hp` field non-empty returns {ok:true} silently and is neither stored nor emailed. Newsletter email field now enforces typeof === 'string' (NoSQL injection guard). Note: rate limit is in-memory so it resets on server restart, but shared across bucket 'form' for all public forms."
+        - working: true
+          agent: "testing"
+          comment: "✅ All SEC-002 tests passed. Created /app/sec_isolated_test.py with comprehensive isolated tests. Verified: (1) Honeypot silently accepts POST /api/contact with _hp field → 200 ok:true, then confirmed via GET /api/contacts (with admin auth) that bot submission was NOT persisted ✓, (2) NoSQL injection guard blocks POST /api/newsletter with email:{$ne:null} → 400 'Email is required' ✓, also blocks email:123 → 400 ✓, (3) Public form rate limit: 8 requests to /api/newsletter → all 200, 9th request → 429 with Retry-After:600s ✓, (4) Admin login rate limit: 5 failed login attempts → all 401, 6th attempt → 429 with Retry-After:900s ✓. All rate limiting, honeypot, and NoSQL injection guards working correctly."
+
+  - task: "SEC-003: Validate resumeUrl on careers/apply"
+    implemented: true
+    working: true
+    file: "/app/app/api/[[...path]]/route.js, /app/lib/security.js, /app/app/admin/page.js"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "POST /api/careers/apply now runs safeHttpUrl() on resumeUrl — only http:/https: accepted (javascript:, data:, file:, vbscript: all rejected with 400 'Resume link must be a valid http(s) URL'). Empty string still allowed. Admin UI (/app/app/admin/page.js) additionally validates href at render time with isSafeUrl(); blocked URLs show 'Blocked' text instead of a clickable link (defense-in-depth for legacy rows)."
+        - working: true
+          agent: "testing"
+          comment: "✅ All SEC-003 tests passed. Verified resumeUrl validation on POST /api/careers/apply: (1) javascript:alert(1) → 400 with error 'Resume link must be a valid http(s) URL' ✓, (2) data:text/html,<script>alert(1)</script> → 400 ✓, (3) file:///etc/passwd → 400 ✓, (4) https://drive.google.com/file/d/abc123/view → 200 ok:true (valid URL accepted and stored) ✓, (5) empty string '' → 200 ok:true (empty allowed) ✓. All dangerous URL schemes properly blocked, only http(s) and empty strings accepted. XSS and file disclosure vulnerabilities mitigated."
+
+  - task: "SEC-004: Security headers (SAMEORIGIN, HSTS, nosniff, CSP)"
+    implemented: true
+    working: true
+    file: "/app/next.config.js"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Removed X-Frame-Options: ALLOWALL and CSP frame-ancestors *. Added: X-Content-Type-Options: nosniff, X-Frame-Options: SAMEORIGIN, Referrer-Policy: strict-origin-when-cross-origin, Strict-Transport-Security max-age=63072000 includeSubDomains preload, Permissions-Policy blocking camera/mic/geolocation/interest-cohort, and a real CSP (default-src 'self' + specific allowlists for iconify, emergentagent asset CDN, resend, google fonts). CORS still permissive on /api/* only for public form endpoints — the wide-open Access-Control-Allow-Headers '*' narrowed to 'Content-Type'."
+        - working: true
+          agent: "testing"
+          comment: "✅ All SEC-004 tests passed. Verified security headers on GET /api/health: (1) X-Content-Type-Options: nosniff ✓, (2) X-Frame-Options: SAMEORIGIN (NOT ALLOWALL) ✓, (3) Strict-Transport-Security: max-age=63072000; includeSubDomains; preload ✓, (4) Referrer-Policy: strict-origin-when-cross-origin ✓, (5) Content-Security-Policy contains 'frame-ancestors 'self'' (NOT 'frame-ancestors *') ✓, (6) Content-Security-Policy contains 'default-src 'self'' ✓. All critical security headers properly configured. Clickjacking, MIME-sniffing, and other common web vulnerabilities mitigated."
+
 frontend:
   - task: "Home page hero & sections"
     implemented: true
@@ -297,12 +342,11 @@ frontend:
 metadata:
   created_by: "main_agent"
   version: "1.0"
-  test_sequence: 3
+  test_sequence: 4
   run_ui: false
 
 test_plan:
-  current_focus:
-    - "SEC-001: Gate GET /api/contacts behind admin session"
+  current_focus: []
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
@@ -322,3 +366,5 @@ agent_communication:
     message: "✅ HEADER LOGO BUG FIX VERIFIED - Focused test completed in <60 seconds. All 7 verification checks passed: Logo image loads with 200 status, src correctly points to /brand/logos/asanyx-logo-header.png, container sized at 200×44px (exceeds 180×40 minimum), displays mark + wordmark clearly without tagline, works on /about page, remains visible in dark mode. Screenshots confirm logo is now prominently visible. User concern 'where is the logo?' is resolved. No further testing needed for this fix."
   - agent: "testing"
     message: "✅ SEC-001 SECURITY FIX VERIFIED - Minimal focused test completed in <10 seconds. Created /app/sec001_test.py. All 3 required checks passed: (1) Anonymous GET /api/contacts → 401 Unauthorized ✅, (2) Admin login → 200 + asanyx_admin cookie ✅, (3) Authenticated GET /api/contacts → 200 + data array ✅. High-priority security vulnerability successfully resolved. GET /api/contacts endpoint is now properly gated behind admin authentication."
+  - agent: "testing"
+    message: "✅ SECURITY FIXES SEC-002, SEC-003, SEC-004 VERIFIED - Focused security testing completed in <2 minutes. Created /app/sec_isolated_test.py with isolated tests (nextjs restarts between rate limit tests to clear in-memory buckets). All 3 security tasks passed: SEC-002 (Rate limiting + honeypot) ✅ - honeypot silently drops bot submissions without persisting, NoSQL injection guard blocks object/number email values, public form rate limit enforces 8/10min (9th request → 429), admin login rate limit enforces 5/15min (6th request → 429), all with proper Retry-After headers. SEC-003 (Resume URL validation) ✅ - javascript:, data:, file: schemes blocked with 400, https:// URLs and empty strings accepted. SEC-004 (Security headers) ✅ - all required headers present (X-Content-Type-Options: nosniff, X-Frame-Options: SAMEORIGIN, HSTS with max-age=63072000, Referrer-Policy, CSP with frame-ancestors 'self' and default-src 'self'). No critical issues found. All security hardening measures working correctly."

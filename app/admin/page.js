@@ -30,6 +30,11 @@ function Copyable({ text }) {
   )
 }
 
+function isSafeUrl(u) {
+  if (!u || typeof u !== 'string') return false
+  try { const p = new URL(u).protocol; return p === 'http:' || p === 'https:' } catch { return false }
+}
+
 function Table({ tab, rows, query }) {
   const filtered = useMemo(() => {
     if (!query) return rows
@@ -51,7 +56,7 @@ function Table({ tab, rows, query }) {
       case 'contacts':
         return [fmtDate(r.createdAt), r.name, <Copyable text={r.email} />, r.company, <Copyable text={r.phone} />, r.source || r.service, <span className="line-clamp-2 text-xs text-slate-500">{r.message}</span>]
       case 'applications':
-        return [fmtDate(r.createdAt), r.name, <Copyable text={r.email} />, <Copyable text={r.phone} />, r.role, r.resumeUrl ? <a href={r.resumeUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-blue-500 hover:underline">Open <ExternalLink className="w-3 h-3" /></a> : '—', <span className="line-clamp-2 text-xs text-slate-500">{r.message}</span>]
+        return [fmtDate(r.createdAt), r.name, <Copyable text={r.email} />, <Copyable text={r.phone} />, r.role, isSafeUrl(r.resumeUrl) ? <a href={r.resumeUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-blue-500 hover:underline">Open <ExternalLink className="w-3 h-3" /></a> : (r.resumeUrl ? <span className="text-slate-500 text-[11px]">Blocked</span> : '—'), <span className="line-clamp-2 text-xs text-slate-500">{r.message}</span>]
       case 'newsletter':
         return [fmtDate(r.createdAt), <Copyable text={r.email} />]
       case 'downloads':
