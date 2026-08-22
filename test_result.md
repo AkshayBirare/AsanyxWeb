@@ -239,6 +239,18 @@ backend:
           agent: "testing"
           comment: "✅ All protected data endpoint tests passed. Verified: (1) GET /api/admin/data without cookie → 401 'Unauthorized', (2) GET /api/admin/data with valid session cookie → 200 with proper structure containing contacts[], applications[], newsletter[], downloads[] arrays and stats{} object with numeric counts (contacts:3, applications:1, newsletter:1, downloads:1). Confirmed MongoDB _id fields are properly stripped from all collections. Authorization middleware working correctly."
 
+  - task: "SEC-001: Gate GET /api/contacts behind admin session"
+    implemented: true
+    working: true
+    file: "/app/app/api/[[...path]]/route.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ Security fix verified. All 3 checks passed: (1) GET /api/contacts without cookie → 401 with {ok:false, error:'Unauthorized'}, (2) POST /api/admin/login with correct credentials → 200 with Set-Cookie asanyx_admin, (3) GET /api/contacts with valid session cookie → 200 with {ok:true, items:[...]} containing 3 contact records. Anonymous access properly blocked, authenticated access working correctly. High-priority security vulnerability resolved."
+
 frontend:
   - task: "Home page hero & sections"
     implemented: true
@@ -289,7 +301,8 @@ metadata:
   run_ui: false
 
 test_plan:
-  current_focus: []
+  current_focus:
+    - "SEC-001: Gate GET /api/contacts behind admin session"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
@@ -307,3 +320,5 @@ agent_communication:
     message: "User reported bug: 'where is the logo on my site?' - header logo was too small/unreadable. Applied fix: (1) Generated new header-optimized logo /brand/logos/asanyx-logo-header.png, (2) Updated site.logo in /app/lib/site.js, (3) Increased header logo container from 168×40 to 200×44. Please verify ONLY the header logo fix with minimal testing (7 checks max): logo loads, correct src, proper size, visible on home + one interior page, works in dark mode."
   - agent: "testing"
     message: "✅ HEADER LOGO BUG FIX VERIFIED - Focused test completed in <60 seconds. All 7 verification checks passed: Logo image loads with 200 status, src correctly points to /brand/logos/asanyx-logo-header.png, container sized at 200×44px (exceeds 180×40 minimum), displays mark + wordmark clearly without tagline, works on /about page, remains visible in dark mode. Screenshots confirm logo is now prominently visible. User concern 'where is the logo?' is resolved. No further testing needed for this fix."
+  - agent: "testing"
+    message: "✅ SEC-001 SECURITY FIX VERIFIED - Minimal focused test completed in <10 seconds. Created /app/sec001_test.py. All 3 required checks passed: (1) Anonymous GET /api/contacts → 401 Unauthorized ✅, (2) Admin login → 200 + asanyx_admin cookie ✅, (3) Authenticated GET /api/contacts → 200 + data array ✅. High-priority security vulnerability successfully resolved. GET /api/contacts endpoint is now properly gated behind admin authentication."

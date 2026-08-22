@@ -34,6 +34,8 @@ export async function GET(request, { params }) {
       return ok({ posts: posts.map(({ _id, ...r }) => r) })
     }
     if (p === 'contacts') {
+      const s = await getSession()
+      if (!s) return fail('Unauthorized', 401)
       const db = await getDb()
       const rows = await db.collection('contacts').find({}).sort({ createdAt: -1 }).limit(100).toArray()
       return ok({ items: rows.map(({ _id, ...r }) => r) })
