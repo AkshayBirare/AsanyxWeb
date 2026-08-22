@@ -6,7 +6,7 @@ import { MotionConfig } from 'framer-motion'
 
 export function Providers({ children }) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange={false}>
+    <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange={false}>
       <MotionConfig reducedMotion="never">
         {children}
         <Toaster position="top-right" richColors closeButton theme="dark" />

@@ -3,7 +3,7 @@ import SiteLayout from '@/components/site/Layout'
 import { SectionHeader } from '@/components/site/Section'
 import Image from 'next/image'
 import { site } from '@/lib/site'
-import { Download, Copy, Check } from 'lucide-react'
+import { Download, Copy, Check, FileText, Presentation as PresentationIcon, Image as ImageIcon } from 'lucide-react'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
@@ -22,6 +22,22 @@ const PALETTE = {
     { name: 'Text Dark', hex: '#0F172A', rgb: '15, 23, 42', use: 'Body text' },
   ],
 }
+
+const LOGO_PACK = [
+  { file: 'asanyx-logo-horizontal-color.png',       label: 'Horizontal · Color',       usage: 'Website, decks, marketing', bg: 'bg-white' },
+  { file: 'asanyx-logo-horizontal-on-white.png',    label: 'Horizontal · On White',    usage: 'Documents, letters, invoices', bg: 'bg-white' },
+  { file: 'asanyx-logo-horizontal-on-dark.png',     label: 'Horizontal · On Dark',     usage: 'Dark UI, video, banners', bg: 'bg-[#0A2540]' },
+  { file: 'asanyx-logo-horizontal-mono-black.png',  label: 'Horizontal · Mono Black',  usage: 'Print, black & white docs', bg: 'bg-white' },
+  { file: 'asanyx-mark-color.png',                  label: 'Mark · Color (Transparent)', usage: 'App icon, avatar overlay', bg: 'bg-white' },
+  { file: 'asanyx-mark-on-white.png',               label: 'Mark · On White',          usage: 'LinkedIn profile picture',   bg: 'bg-white' },
+  { file: 'asanyx-mark-on-dark.png',                label: 'Mark · On Dark',           usage: 'Dark theme avatar, video',   bg: 'bg-[#0A2540]' },
+  { file: 'asanyx-favicon-256.png',                 label: 'Favicon · 256×256',        usage: 'Browser tab, PWA icon',      bg: 'bg-white' },
+]
+
+const DOC_PACK = [
+  { file: 'ASANYX_Letterhead.docx',   label: 'Corporate Letterhead',  format: 'Microsoft Word (.docx)',    icon: FileText,         desc: 'Branded letterhead with header logo, footer contact block and a ready-to-edit letter body.' },
+  { file: 'ASANYX_Presentation.pptx', label: 'Presentation Template', format: 'PowerPoint (.pptx) · 16:9', icon: PresentationIcon, desc: 'Five master slides — title, section header, 3-column content, two-column narrative and closing CTA.' },
+]
 
 const IMAGES = [
   { url: 'https://images.unsplash.com/photo-1698306642516-9841228dcff3?w=1200&q=85', cat: 'Dashboard', use: 'Hero, pitch deck cover' },
@@ -201,6 +217,65 @@ export default function BrandPage() {
               <div className="aspect-square rounded-2xl overflow-hidden shadow-brand grid place-items-center p-8" style={{ background: '#0A2540' }}>
                 <Image src={site.logo} alt="ASANYX" width={400} height={400} className="object-contain w-full h-full brightness-[1.6]" />
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Downloadable Assets — Logos + Documents */}
+      <section className="py-14 border-t border-border/60">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="flex flex-wrap items-end justify-between gap-3 mb-6">
+            <div>
+              <h3 className="text-2xl font-bold">Downloadable Assets</h3>
+              <p className="text-sm text-muted-foreground mt-1">Logo pack (8 variations) plus a branded Word letterhead and PowerPoint template — ready to drop into your deliverables.</p>
+            </div>
+            <div className="text-[11px] px-2 py-1 rounded-full bg-emerald-500/15 text-emerald-600 font-semibold">All PNG / DOCX / PPTX</div>
+          </div>
+
+          {/* Corporate documents */}
+          <div className="grid md:grid-cols-2 gap-4">
+            {DOC_PACK.map(d => {
+              const Icon = d.icon
+              return (
+                <div key={d.file} className="rounded-2xl border border-border/60 bg-card/60 p-6 flex flex-col sm:flex-row gap-5 items-start">
+                  <div className="w-14 h-14 rounded-xl grid place-items-center shrink-0" style={{ background: 'linear-gradient(135deg, #0A2540 0%, #1E6BFF 100%)' }}>
+                    <Icon className="w-7 h-7 text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-[11px] uppercase tracking-widest text-muted-foreground">{d.format}</div>
+                    <div className="mt-0.5 font-semibold text-lg">{d.label}</div>
+                    <p className="mt-1.5 text-sm text-muted-foreground">{d.desc}</p>
+                    <a href={`/brand/documents/${d.file}`} download className="mt-4 inline-flex items-center gap-2 rounded-full px-4 py-2 text-[13px] font-semibold text-white" style={{ background: '#0A2540' }}>
+                      <Download className="w-4 h-4" /> Download {d.file.split('.').pop().toUpperCase()}
+                    </a>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+
+          {/* Logo pack */}
+          <div className="mt-10">
+            <div className="flex items-center gap-2 mb-4">
+              <ImageIcon className="w-4 h-4 text-blue-600 dark:text-cyan-400" />
+              <div className="text-xs uppercase tracking-widest text-muted-foreground font-semibold">Logo Pack · 8 variations</div>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {LOGO_PACK.map(l => (
+                <div key={l.file} className="group rounded-2xl overflow-hidden border border-border/60 bg-card/60">
+                  <div className={`relative aspect-[4/3] ${l.bg} grid place-items-center p-4`}>
+                    <img src={`/brand/logos/${l.file}`} alt={l.label} className="max-w-full max-h-full object-contain" />
+                  </div>
+                  <div className="p-3.5 border-t border-border/50">
+                    <div className="text-[13px] font-semibold leading-tight">{l.label}</div>
+                    <div className="text-[11px] text-muted-foreground mt-0.5">{l.usage}</div>
+                    <a href={`/brand/logos/${l.file}`} download className="mt-3 inline-flex items-center gap-1.5 text-[11px] font-semibold text-blue-600 dark:text-cyan-400 hover:gap-2 transition-all">
+                      Download PNG <Download className="w-3 h-3" />
+                    </a>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
