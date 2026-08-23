@@ -105,23 +105,23 @@ export function TechnologiesQuiet() {
     { name: 'Azure', url: 'https://api.iconify.design/logos:microsoft-azure.svg' },
     { name: 'GCP', url: 'https://api.iconify.design/logos:google-cloud.svg' },
     { name: 'Snowflake', url: 'https://api.iconify.design/logos:snowflake-icon.svg' },
-    { name: 'Databricks', url: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/databricks.svg' },
+    { name: 'Azure Databricks', url: 'https://api.iconify.design/logos:databricks-icon.svg' },
   ]
   return (
     <section className="section-y-sm">
       <div className="container-x">
         <div className="eyebrow text-center block">Delivering on</div>
-        <div className="mt-8 grid grid-cols-3 md:grid-cols-6 gap-6 items-center">
+        <div className="mt-8 grid grid-cols-3 md:grid-cols-6 gap-6 items-start">
           {techs.map(t => (
-            <div key={t.name} className="flex flex-col items-center gap-2 group">
-              <div className="w-14 h-14 grid place-items-center opacity-70 group-hover:opacity-100 transition">
+            <div key={t.name} className="flex flex-col items-center gap-3 group">
+              <div className="w-12 h-12 grid place-items-center opacity-70 group-hover:opacity-100 transition">
                 {t.url ? (
-                  <img src={t.url} alt={t.name} className="w-full h-full object-contain" loading="lazy" />
+                  <img src={t.url} alt={t.name} className="max-w-full max-h-full object-contain" loading="lazy" />
                 ) : (
                   <div className="w-full h-full rounded-lg bg-ink text-white grid place-items-center text-lg font-semibold">{t.initial}</div>
                 )}
               </div>
-              <div className="text-[12px] font-medium text-muted-brand group-hover:text-ink dark:group-hover:text-white transition">{t.name}</div>
+              <div className="text-[12px] font-medium text-muted-brand group-hover:text-ink dark:group-hover:text-white transition text-center leading-tight">{t.name}</div>
             </div>
           ))}
         </div>

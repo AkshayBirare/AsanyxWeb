@@ -309,6 +309,24 @@ frontend:
           agent: "main"
           comment: "Verified via screenshot. Hero, services, industries, founder, case studies render premium."
 
+  - task: "DELIVERING ON logos section - bug fix"
+    implemented: true
+    working: true
+    file: "/app/components/site/Sections.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "user"
+          comment: "User reported: Power BI logo/label text overlapping (misaligned) and Databricks logo showing as broken image icon."
+        - working: "NA"
+          agent: "main"
+          comment: "Fix applied: (1) Swapped Databricks src from jsdelivr (blocked by CSP) to https://api.iconify.design/logos:databricks-icon.svg, (2) Renamed label to 'Azure Databricks', (3) Changed icon container from w-14 h-14 items-center gap-2 to w-12 h-12 items-start gap-3 with max-w-full max-h-full on img to prevent overflow."
+        - working: true
+          agent: "testing"
+          comment: "✅ Bug fix verified. Minimal visual check completed in <30 seconds. All 3 required checks passed: (1) All 6 logos load correctly - 5 images with naturalWidth > 0 (Power BI=12, Azure=17, GCP=20, Snowflake=16, Azure Databricks=15) plus Microsoft Fabric with initial 'F' ✓, (2) 6th logo displays red/orange hexagonal Databricks icon with label 'Azure Databricks' ✓, (3) No overlapping - all 6 logos have 12px gap between icon and label text ✓. Screenshot confirms proper spacing and no broken images. User-reported issues (overlapping and broken Databricks image) are resolved."
+
   - task: "Multi-page routes"
     implemented: true
     working: true
@@ -368,3 +386,5 @@ agent_communication:
     message: "✅ SEC-001 SECURITY FIX VERIFIED - Minimal focused test completed in <10 seconds. Created /app/sec001_test.py. All 3 required checks passed: (1) Anonymous GET /api/contacts → 401 Unauthorized ✅, (2) Admin login → 200 + asanyx_admin cookie ✅, (3) Authenticated GET /api/contacts → 200 + data array ✅. High-priority security vulnerability successfully resolved. GET /api/contacts endpoint is now properly gated behind admin authentication."
   - agent: "testing"
     message: "✅ SECURITY FIXES SEC-002, SEC-003, SEC-004 VERIFIED - Focused security testing completed in <2 minutes. Created /app/sec_isolated_test.py with isolated tests (nextjs restarts between rate limit tests to clear in-memory buckets). All 3 security tasks passed: SEC-002 (Rate limiting + honeypot) ✅ - honeypot silently drops bot submissions without persisting, NoSQL injection guard blocks object/number email values, public form rate limit enforces 8/10min (9th request → 429), admin login rate limit enforces 5/15min (6th request → 429), all with proper Retry-After headers. SEC-003 (Resume URL validation) ✅ - javascript:, data:, file: schemes blocked with 400, https:// URLs and empty strings accepted. SEC-004 (Security headers) ✅ - all required headers present (X-Content-Type-Options: nosniff, X-Frame-Options: SAMEORIGIN, HSTS with max-age=63072000, Referrer-Policy, CSP with frame-ancestors 'self' and default-src 'self'). No critical issues found. All security hardening measures working correctly."
+  - agent: "testing"
+    message: "✅ DELIVERING ON LOGOS BUG FIX VERIFIED - Minimal visual check completed in <30 seconds. All 3 required checks passed: (1) All 6 logos load correctly with no broken images (5 images with naturalWidth > 0, plus Microsoft Fabric with initial 'F') ✅, (2) 6th logo displays red/orange hexagonal Databricks icon with label 'Azure Databricks' ✅, (3) No overlapping - all 6 logos have 12px gap between icon and label text ✅. User-reported issues (Power BI overlapping and Databricks broken image) are resolved."
