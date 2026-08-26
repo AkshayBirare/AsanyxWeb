@@ -27,10 +27,10 @@ export default function Hero() {
       <div className="container-x pb-16 md:pb-24 animate-fade-up-delay-2">
         <div className="grid md:grid-cols-4 gap-x-10 gap-y-6 pt-10 border-t border-hairline">
           {[
-            { k: 'BI', v: 'Business Intelligence Consulting' },
-            { k: 'DE', v: 'Data & Analytics Engineering' },
-            { k: 'MS', v: 'Migration to Power BI & Fabric' },
-            { k: 'SA', v: 'Dedicated & Remote Delivery' },
+            { k: 'BI', v: 'Business Intelligence & Reporting' },
+            { k: 'MG', v: 'Tableau, Qlik Sense & Looker → Power BI migrations' },
+            { k: 'SA', v: 'Staff Augmentation & Dedicated Delivery' },
+            { k: 'WL', v: 'White-Label Delivery for Agencies & Consultancies' },
           ].map(o => (
             <div key={o.k} className="flex items-start gap-3">
               <div className="text-xs font-semibold tracking-[0.15em] text-asanyx-blue mt-1">{o.k}</div>

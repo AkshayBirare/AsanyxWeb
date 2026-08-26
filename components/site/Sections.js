@@ -22,23 +22,23 @@ export function SectionHead({ eyebrow, title, subtitle, action }) {
 
 export function CoreCapabilities() {
   const capabilities = [
-    { title: 'Business Intelligence', desc: 'Enterprise dashboards, semantic models and executive reporting on Power BI and Microsoft Fabric.', icon: 'BarChart3' },
-    { title: 'Data Engineering', desc: 'Modern data platforms and pipelines on Azure, Fabric, Databricks, Snowflake and GCP.', icon: 'Database' },
-    { title: 'Migration Services', desc: 'Structured, low-risk migrations from Tableau, Qlik and Looker to Power BI and Fabric.', icon: 'Repeat' },
-    { title: 'Consulting & Delivery', desc: 'Project delivery, dedicated resources, staff augmentation and managed analytics services.', icon: 'Compass' },
+    { title: 'Business Intelligence & Reporting', desc: 'Executive dashboards, semantic models and KPI reporting on Power BI and Microsoft Fabric.', icon: 'BarChart3', href: '/services#business-intelligence-reporting' },
+    { title: 'BI Migration', desc: 'Hands-on migrations from Tableau, Qlik Sense and Looker to Power BI - business logic, calculations and figures preserved exactly.', icon: 'Repeat', href: '/migration-services' },
+    { title: 'Staff Augmentation', desc: 'Power BI, Fabric and data engineering consultants embedded in your team - short or long-term, offshore or remote.', icon: 'Users', href: '/services#staff-augmentation' },
+    { title: 'White-Label Delivery Partnership', desc: 'Behind-the-scenes BI and data delivery for agencies and consultancies - client-branded, confidentiality-first.', icon: 'Handshake', href: '/services#white-label-delivery' },
   ]
   return (
     <section className="section-y">
       <div className="container-x">
         <SectionHead
           eyebrow="What we do"
-          title={<>Four practices. <span className="serif text-asanyx-blue">One partner</span> for your data platform.</>}
-          subtitle="We keep our scope focused - so we can be exceptional at what matters most for enterprise BI and data programs."
+          title={<>Focused practices. <span className="serif text-asanyx-blue">One partner</span> for your data platform.</>}
+          subtitle="A focused set of services from a senior team. Four core practices below - see all seven on our services page."
           action={<Link href="/services" className="btn-outline">All services <Icons.ArrowRight className="w-4 h-4" /></Link>}
         />
         <div className="grid md:grid-cols-2 gap-6">
           {capabilities.map(c => (
-            <Link key={c.title} href="/services" className="card-min p-8 group">
+            <Link key={c.title} href={c.href} className="card-min p-8 group">
               <div className="flex items-start justify-between gap-6">
                 <div>
                   <div className="w-10 h-10 rounded-lg text-asanyx-blue grid place-items-center" style={{background:'rgba(18,87,199,0.08)'}}>

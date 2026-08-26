@@ -54,11 +54,13 @@ export default function Footer() {
           <div className="md:col-span-2">
             <div className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-3">Services</div>
             <ul className="space-y-2 text-sm text-slate-300">
-              <li><Link href="/services" className="hover:text-white">Business Intelligence</Link></li>
-              <li><Link href="/services" className="hover:text-white">Data Engineering</Link></li>
-              <li><Link href="/services" className="hover:text-white">Data Analytics</Link></li>
-              <li><Link href="/services" className="hover:text-white">ML Engineering</Link></li>
-              <li><Link href="/services" className="hover:text-white">Staff Augmentation</Link></li>
+              <li><Link href="/services#business-intelligence-reporting" className="hover:text-white">Business Intelligence & Reporting</Link></li>
+              <li><Link href="/migration-services" className="hover:text-white">BI Migration</Link></li>
+              <li><Link href="/services#data-modernization" className="hover:text-white">Data Modernization</Link></li>
+              <li><Link href="/services#staff-augmentation" className="hover:text-white">Staff Augmentation</Link></li>
+              <li><Link href="/services#consulting-advisory" className="hover:text-white">Consulting & Advisory</Link></li>
+              <li><Link href="/services#white-label-delivery" className="hover:text-white">White-Label Delivery Partnership</Link></li>
+              <li><Link href="/services#managed-delivery-support" className="hover:text-white">Managed Delivery Support</Link></li>
             </ul>
           </div>
           <div className="md:col-span-2">
