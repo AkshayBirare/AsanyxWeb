@@ -1,6 +1,7 @@
 'use client'
 import SiteLayout from '@/components/site/Layout'
 import { CaseStudiesGrid, CTABand } from '@/components/site/Sections'
+import SampleWork from '@/components/site/SampleWork'
 
 export default function CaseStudiesPage() {
   return (
@@ -13,6 +14,7 @@ export default function CaseStudiesPage() {
         </div>
       </section>
       <CaseStudiesGrid />
+      <SampleWork />
       <CTABand />
     </SiteLayout>
   )
