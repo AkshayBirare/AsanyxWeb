@@ -68,33 +68,33 @@ const FROM_TO = [
 ]
 
 const OUTCOMES = [
-  { icon: Clock,         k: '40-60%', v: 'faster report load times post-migration' },
-  { icon: GaugeCircle,   k: '25-45%', v: 'reduction in annual BI licensing cost' },
-  { icon: Layers,        k: '2-5x',   v: 'consolidation of legacy reports into modern models' },
-  { icon: Users,         k: '90%+',   v: 'business user adoption within 90 days' },
+  { icon: ShieldCheck,   k: 'Figures that reconcile',      v: 'Every business-critical KPI is validated against the source platform before sign-off.' },
+  { icon: Layers,        k: 'Logic preserved exactly',     v: 'Business logic, calculations and figures carry over as they are - nothing gets reinterpreted in the move.' },
+  { icon: GaugeCircle,   k: 'A leaner estate',             v: 'Duplicate and unused reports are retired before migration, reducing licensing and maintenance load.' },
+  { icon: Users,         k: 'Adoption, not just delivery', v: 'Training, parallel run and hypercare continue until the business has actually switched.' },
 ]
 
 const CASES = [
   {
-    industry: 'Financial Services · APAC',
+    industry: 'Financial Services · Representative',
     from: 'Tableau', to: 'Power BI on Microsoft Fabric',
-    challenge: '380+ Tableau workbooks across 6 departments, inconsistent metrics and rising licensing costs.',
-    approach: 'Wave-based rebuild - executive suite first, then risk and finance. Semantic model consolidated 41 workbooks into 6 governed datasets.',
-    outcome: ['Retired 42% of unused reports', 'Cut annual BI license spend by ~38%', 'Executive dashboards refreshed 4x faster'],
+    challenge: 'A large Tableau estate across multiple departments, inconsistent metrics and rising licensing costs.',
+    approach: 'Wave-based rebuild - executive suite first, then risk and finance. Dozens of overlapping workbooks consolidated into a handful of governed semantic models.',
+    outcome: ['Unused reports retired before migration', 'Materially lower annual BI license spend', 'Executive dashboards refresh noticeably faster'],
   },
   {
-    industry: 'Global Logistics',
+    industry: 'Logistics · Representative',
     from: 'Qlik Sense', to: 'Power BI on Azure',
-    challenge: 'Fragmented Qlik apps with duplicated business logic across regions; slow YoY reporting on peak days.',
+    challenge: 'Fragmented Qlik apps with duplicated business logic across regions; slow reporting on peak days.',
     approach: 'Set analysis rewritten as DAX calculation groups. Regional apps consolidated into one workspace with row-level security by region.',
-    outcome: ['One version of the truth across 11 regions', 'Peak-day dashboards under 3s', 'Weekly board pack automated end-to-end'],
+    outcome: ['One version of the truth across regions', 'Dashboards that hold up on peak days', 'Weekly board pack automated end-to-end'],
   },
   {
-    industry: 'Retail · India',
+    industry: 'Retail · Representative',
     from: 'Legacy SSRS + Excel', to: 'Power BI · Fabric Lakehouse',
-    challenge: 'Store-manager reports delivered via SSRS + Excel workarounds; poor mobile experience, no real-time SKU view.',
+    challenge: 'Store reports delivered via SSRS and Excel workarounds; poor mobile experience, no timely SKU view.',
     approach: 'Fabric lakehouse for POS and inventory, star-schema semantic model, mobile-first Power BI apps with paginated report parity.',
-    outcome: ['Real-time SKU visibility across 900+ stores', 'Store-manager adoption 92% in 60 days', 'Retired 6 legacy report platforms'],
+    outcome: ['Timely SKU visibility across the store network', 'Strong store-manager adoption within weeks', 'Multiple legacy reporting tools retired'],
   },
 ]
 
@@ -105,7 +105,7 @@ const FAQS = [
   },
   {
     q: 'Do you migrate everything as-is?',
-    a: 'No - and that is on purpose. We use discovery to retire duplicate, unused and low-value reports before we touch them. On average, 30-40% of source reports never make it to Power BI.',
+    a: 'No - and that is on purpose. We use discovery to retire duplicate, unused and low-value reports before we touch them. In most estates, a meaningful share of source reports never needs to make it to Power BI.',
   },
   {
     q: 'What about the numbers - will they still match?',
@@ -133,12 +133,12 @@ export default function MigrationServicesPage() {
         <div className="absolute inset-x-0 top-0 h-[70%] dot-grid opacity-60" />
         <div className="container-x relative pt-24 pb-14 md:pt-36 md:pb-16">
           <div className="max-w-4xl">
-            <div className="eyebrow">Migration Services</div>
+            <div className="eyebrow">BI Migration</div>
             <h1 className="mt-6 text-[40px] sm:text-5xl md:text-[72px] font-medium leading-[1.05] tracking-tight text-ink dark:text-white">
               Modernize your analytics platform - <span className="serif text-asanyx-blue">without losing business logic.</span>
             </h1>
             <p className="mt-8 text-lg md:text-xl text-muted-brand max-w-2xl leading-relaxed">
-              A structured, low-risk migration from Tableau, Qlik Sense and Looker to Power BI on Microsoft Fabric - preserving figures, semantics and the trust your business already has in its reports.
+              Deep, hands-on migrations from Tableau, Qlik Sense and Looker to Power BI on Microsoft Fabric. Business logic, calculations and figures are preserved exactly - nothing gets reinterpreted in the move.
             </p>
             <div className="mt-10 flex flex-wrap items-center gap-4">
               <Link href="/contact?type=migration" className="btn-primary">Plan your migration <ArrowRight className="w-4 h-4" /></Link>
@@ -167,9 +167,9 @@ export default function MigrationServicesPage() {
       {/* OUTCOMES */}
       <Section className="border-t border-hairline">
         <div className="container-x">
-          <div className="eyebrow">What clients see</div>
+          <div className="eyebrow">What we commit to</div>
           <h2 className="mt-4 text-3xl md:text-[40px] font-medium tracking-tight leading-[1.1] text-ink dark:text-white max-w-3xl">
-            The outcomes we anchor <span className="serif text-asanyx-blue">every program</span> to.
+            The commitments we anchor <span className="serif text-asanyx-blue">every migration</span> to.
           </h2>
           <div className="mt-12 grid md:grid-cols-4 gap-6">
             {OUTCOMES.map((o, i) => {
@@ -177,13 +177,12 @@ export default function MigrationServicesPage() {
               return (
                 <div key={i} className="border-l border-asanyx-blue/40 pl-5">
                   <Icon className="w-5 h-5 text-asanyx-blue" strokeWidth={1.5} />
-                  <div className="mt-4 text-4xl md:text-5xl font-medium tracking-tight text-ink dark:text-white">{o.k}</div>
+                  <div className="mt-4 text-xl md:text-2xl font-medium tracking-tight text-ink dark:text-white leading-snug">{o.k}</div>
                   <div className="mt-2 text-sm text-muted-brand leading-snug">{o.v}</div>
                 </div>
               )
             })}
           </div>
-          <p className="mt-8 text-[12px] text-muted-brand max-w-2xl">Ranges reflect observed outcomes across recent ASANYX-led migrations. Actual results depend on source-platform complexity, data volumes and organizational readiness.</p>
         </div>
       </Section>
 
@@ -197,7 +196,7 @@ export default function MigrationServicesPage() {
                 Five steps. <span className="serif text-asanyx-blue">No surprises.</span>
               </h2>
               <p className="mt-4 text-lg text-muted-brand max-w-2xl leading-relaxed">
-                Every ASANYX migration follows the same disciplined sequence - refined over multiple enterprise programs across BFSI, retail and logistics.
+                Every ASANYX migration follows the same disciplined sequence - shaped by our consultants' hands-on delivery experience across finance, banking, retail and logistics.
               </p>
             </div>
           </div>
@@ -235,11 +234,11 @@ export default function MigrationServicesPage() {
       {/* CASE SNIPPETS */}
       <Section className="border-t border-hairline">
         <div className="container-x">
-          <div className="eyebrow">Selected engagements</div>
+          <div className="eyebrow">Representative scenarios</div>
           <h2 className="mt-4 text-3xl md:text-[40px] font-medium tracking-tight leading-[1.1] text-ink dark:text-white max-w-3xl">
-            A pattern of <span className="serif text-asanyx-blue">measurable outcomes</span>.
+            The patterns we deliver, <span className="serif text-asanyx-blue">illustrated</span>.
           </h2>
-          <p className="mt-4 text-lg text-muted-brand max-w-2xl leading-relaxed">Client names are anonymized. Numbers reflect the delivered engagement.</p>
+          <p className="mt-4 text-lg text-muted-brand max-w-2xl leading-relaxed">Illustrative, anonymized scenarios showing how we typically run these migrations - not claims about specific named clients.</p>
 
           <div className="mt-12 space-y-6">
             {CASES.map((c, i) => (

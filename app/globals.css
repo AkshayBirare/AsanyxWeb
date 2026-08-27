@@ -199,4 +199,31 @@
 
   /* Brand wordmark (header lockup) */
   .font-brand { font-family: 'Manrope', 'Inter', sans-serif; }
+
+  /* Logo mark one-time load animation (bars grow, trend line draws) */
+  .asx-line { fill: none; stroke: #F59E0B; stroke-width: 13; stroke-linecap: round; stroke-linejoin: round; }
+  .logo-anim .asx-bar {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+    animation: asx-grow 0.5s cubic-bezier(0.33, 1, 0.68, 1) both;
+  }
+  .logo-anim .asx-b2 { animation-delay: 0.1s; }
+  .logo-anim .asx-b3 { animation-delay: 0.2s; }
+  @keyframes asx-grow { from { transform: scaleY(0); } }
+  .logo-anim .asx-line {
+    stroke-dasharray: 245;
+    stroke-dashoffset: 245;
+    animation: asx-draw 0.4s ease-out 0.55s both;
+  }
+  @keyframes asx-draw { to { stroke-dashoffset: 0; } }
+  .logo-anim .asx-dot { opacity: 0; animation: asx-pop 0.18s ease-out both; }
+  .logo-anim .asx-d1 { animation-delay: 0.55s; }
+  .logo-anim .asx-d2 { animation-delay: 0.72s; }
+  .logo-anim .asx-d3 { animation-delay: 0.9s; }
+  @keyframes asx-pop { to { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) {
+    .logo-anim .asx-bar, .logo-anim .asx-line, .logo-anim .asx-dot { animation: none !important; }
+    .logo-anim .asx-line { stroke-dashoffset: 0; }
+    .logo-anim .asx-dot { opacity: 1; }
+  }
 }

@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
 import { Menu, Moon, Sun, X } from 'lucide-react'
 import { site, nav } from '@/lib/site'
+import LogoMark from './LogoMark'
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
@@ -26,7 +27,7 @@ export default function Header() {
       <div className="container-x">
         <div className="flex items-center justify-between h-18 py-3">
           <Link href="/" className="flex items-center gap-2.5 shrink-0" aria-label="ASANYX Analytics">
-            <img src={site.logoMark} alt="ASANYX Analytics mark" className="w-10 h-10 md:w-11 md:h-11 object-contain" />
+            <LogoMark className="w-10 h-10 md:w-11 md:h-11" />
             <span className="font-brand flex items-baseline gap-1.5 whitespace-nowrap">
               <span className="text-[19px] md:text-[21px] font-extrabold tracking-tight text-[#1E3A8A] dark:text-white leading-none">ASANYX</span>
               <span className="hidden sm:inline text-[11px] md:text-[12px] font-bold tracking-[0.26em] text-[#1B9AF5] leading-none">ANALYTICS</span>
