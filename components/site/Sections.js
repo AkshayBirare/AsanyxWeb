@@ -82,13 +82,26 @@ export function MigrationSection() {
           <div className="md:col-span-7">
             <Reveal delay={120}>
             <div className="grid grid-cols-3 gap-3">
-              {['Tableau','Qlik Sense','Looker'].map(t => (
-                <div key={t} className="card-min bg-white dark:bg-slate-900 py-6 text-center text-sm font-medium text-ink dark:text-slate-200">{t}</div>
+              {[
+                { name: 'Tableau', icon: 'https://api.iconify.design/logos:tableau-icon.svg' },
+                { name: 'Qlik Sense', icon: 'https://api.iconify.design/simple-icons:qlik.svg?color=%23009845' },
+                { name: 'Looker', icon: 'https://api.iconify.design/logos:looker-icon.svg', sub: 'incl. Looker Studio' },
+              ].map(t => (
+                <div key={t.name} className="card-min bg-white dark:bg-slate-900 py-5 px-2 flex flex-col items-center justify-center gap-2 text-center">
+                  <img src={t.icon} alt={`${t.name} logo`} className="w-7 h-7 object-contain" loading="lazy" />
+                  <div className="text-sm font-medium text-ink dark:text-slate-200 leading-tight">
+                    {t.name}
+                    {t.sub && <div className="text-[10px] font-normal text-muted-brand mt-0.5">{t.sub}</div>}
+                  </div>
+                </div>
               ))}
               <div className="col-span-3 flex items-center justify-center py-3 text-muted-brand"><Icons.ArrowDown className="w-5 h-5" /></div>
               <div className="col-span-3 rounded-xl brand-gradient text-white p-6 text-center" style={{background:'#0B1B3A'}}>
                 <div className="text-xs uppercase tracking-widest opacity-70">Modern platform</div>
-                <div className="text-2xl font-medium mt-1">Power BI  &middot;  Microsoft Fabric</div>
+                <div className="mt-2 flex items-center justify-center gap-3">
+                  <img src="https://api.iconify.design/logos:microsoft-power-bi.svg" alt="Power BI logo" className="w-8 h-8 object-contain" loading="lazy" />
+                  <div className="text-2xl font-medium">Power BI  &middot;  Microsoft Fabric</div>
+                </div>
               </div>
               <div className="col-span-3 grid grid-cols-5 gap-2 pt-2">
                 {['Discovery','Design','Migrate','Validate','Adopt'].map((s,i) => (
