@@ -100,6 +100,7 @@ export function MigrationSection() {
                 <div className="text-xs uppercase tracking-widest opacity-70">Modern platform</div>
                 <div className="mt-2 flex items-center justify-center gap-3">
                   <img src="https://api.iconify.design/logos:microsoft-power-bi.svg" alt="Power BI logo" className="w-8 h-8 object-contain" loading="lazy" />
+                  <img src="/brand/microsoft-fabric.svg" alt="Microsoft Fabric logo" className="w-8 h-8 object-contain" loading="lazy" />
                   <div className="text-2xl font-medium">Power BI  &middot;  Microsoft Fabric</div>
                 </div>
               </div>
@@ -123,7 +124,7 @@ export function MigrationSection() {
 export function TechnologiesQuiet() {
   const techs = [
     { name: 'Power BI', url: 'https://api.iconify.design/logos:microsoft-power-bi.svg' },
-    { name: 'Microsoft Fabric', url: null, initial: 'F' },
+    { name: 'Microsoft Fabric', url: '/brand/microsoft-fabric.svg' },
     { name: 'Azure', url: 'https://api.iconify.design/logos:microsoft-azure.svg' },
     { name: 'GCP', url: 'https://api.iconify.design/logos:google-cloud.svg' },
     { name: 'Snowflake', url: 'https://api.iconify.design/logos:snowflake-icon.svg' },
