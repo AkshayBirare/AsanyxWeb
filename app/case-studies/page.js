@@ -2,6 +2,7 @@
 import SiteLayout from '@/components/site/Layout'
 import { CaseStudiesGrid, CTABand } from '@/components/site/Sections'
 import SampleWork from '@/components/site/SampleWork'
+import ArchitectureNote from '@/components/site/ArchitectureNote'
 
 export default function CaseStudiesPage() {
   return (
@@ -15,6 +16,7 @@ export default function CaseStudiesPage() {
       </section>
       <CaseStudiesGrid />
       <SampleWork />
+      <ArchitectureNote />
       <CTABand />
     </SiteLayout>
   )

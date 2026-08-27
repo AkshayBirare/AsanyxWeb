@@ -1,6 +1,7 @@
 'use client'
 import * as Icons from 'lucide-react'
 import Link from 'next/link'
+import Reveal from './Reveal'
 
 function Icon({ name, className }) {
   const C = Icons[name] || Icons.Circle
@@ -30,15 +31,18 @@ export function CoreCapabilities() {
   return (
     <section className="section-y">
       <div className="container-x">
-        <SectionHead
-          eyebrow="What we do"
-          title={<>Focused practices. <span className="serif text-asanyx-blue">One partner</span> for your data platform.</>}
-          subtitle="A focused set of services from a senior team. Four core practices below - see all seven on our services page."
-          action={<Link href="/services" className="btn-outline">All services <Icons.ArrowRight className="w-4 h-4" /></Link>}
-        />
+        <Reveal>
+          <SectionHead
+            eyebrow="What we do"
+            title={<>Focused practices. <span className="serif text-asanyx-blue">One partner</span> for your data platform.</>}
+            subtitle="A focused set of services from a senior team. Four core practices below - see all seven on our services page."
+            action={<Link href="/services" className="btn-outline">All services <Icons.ArrowRight className="w-4 h-4" /></Link>}
+          />
+        </Reveal>
         <div className="grid md:grid-cols-2 gap-6">
-          {capabilities.map(c => (
-            <Link key={c.title} href={c.href} className="card-min p-8 group">
+          {capabilities.map((c, i) => (
+            <Reveal key={c.title} delay={i * 90} className="h-full">
+            <Link href={c.href} className="card-min p-8 group block h-full">
               <div className="flex items-start justify-between gap-6">
                 <div>
                   <div className="w-10 h-10 rounded-lg text-asanyx-blue grid place-items-center" style={{background:'rgba(18,87,199,0.08)'}}>
@@ -50,6 +54,7 @@ export function CoreCapabilities() {
                 <Icons.ArrowUpRight className="w-5 h-5 text-slate-400 group-hover:text-asanyx-blue transition" />
               </div>
             </Link>
+            </Reveal>
           ))}
         </div>
       </div>
@@ -63,6 +68,7 @@ export function MigrationSection() {
       <div className="container-x">
         <div className="grid md:grid-cols-12 gap-10">
           <div className="md:col-span-5">
+            <Reveal>
             <div className="eyebrow">Featured practice</div>
             <h2 className="mt-4 text-3xl md:text-[44px] font-medium tracking-tight leading-[1.1] text-ink dark:text-white">
               Modernize your analytics platform - <span className="serif text-asanyx-blue">without losing business logic.</span>
@@ -71,8 +77,10 @@ export function MigrationSection() {
             <div className="mt-8 flex gap-3">
               <Link href="/contact" className="btn-primary">Plan your migration <Icons.ArrowRight className="w-4 h-4" /></Link>
             </div>
+            </Reveal>
           </div>
           <div className="md:col-span-7">
+            <Reveal delay={120}>
             <div className="grid grid-cols-3 gap-3">
               {['Tableau','Qlik Sense','Looker'].map(t => (
                 <div key={t} className="card-min bg-white dark:bg-slate-900 py-6 text-center text-sm font-medium text-ink dark:text-slate-200">{t}</div>
@@ -91,6 +99,7 @@ export function MigrationSection() {
                 ))}
               </div>
             </div>
+            </Reveal>
           </div>
         </div>
       </div>
@@ -110,6 +119,7 @@ export function TechnologiesQuiet() {
   return (
     <section className="section-y-sm">
       <div className="container-x">
+        <Reveal>
         <div className="eyebrow text-center block">Delivering on</div>
         <div className="mt-8 grid grid-cols-3 md:grid-cols-6 gap-6 items-start">
           {techs.map(t => (
@@ -125,6 +135,7 @@ export function TechnologiesQuiet() {
             </div>
           ))}
         </div>
+        </Reveal>
       </div>
     </section>
   )
@@ -141,18 +152,22 @@ export function ValuesSection() {
       <div className="container-x">
         <div className="grid md:grid-cols-12 gap-10">
           <div className="md:col-span-4">
+            <Reveal>
             <div className="eyebrow">How we work</div>
             <h2 className="mt-4 text-3xl md:text-[44px] font-medium tracking-tight leading-[1.1] text-ink dark:text-white">Three <span className="serif text-asanyx-blue">principles</span> behind every engagement.</h2>
+            </Reveal>
           </div>
           <div className="md:col-span-8 space-y-10">
-            {values.map(v => (
-              <div key={v.n} className="grid grid-cols-[64px_1fr] gap-6 pb-10 border-b border-hairline last:border-0 last:pb-0">
+            {values.map((v, i) => (
+              <Reveal key={v.n} delay={i * 90} className="pb-10 border-b border-hairline last:border-0 last:pb-0">
+              <div className="grid grid-cols-[64px_1fr] gap-6">
                 <div className="text-2xl font-medium text-asanyx-blue">{v.n}</div>
                 <div>
                   <div className="text-xl font-semibold text-ink dark:text-white">{v.title}</div>
                   <p className="mt-2 text-[15px] text-muted-brand leading-relaxed max-w-2xl">{v.desc}</p>
                 </div>
               </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -171,17 +186,21 @@ export function EngagementQuiet() {
   return (
     <section className="section-y bg-cream dark:bg-transparent border-y border-hairline">
       <div className="container-x">
-        <SectionHead
-          eyebrow="Engagement models"
-          title={<>Engage us in the <span className="serif text-asanyx-blue">way that fits</span> your program.</>}
-          action={<Link href="/engagement-models" className="btn-outline">All engagement models <Icons.ArrowRight className="w-4 h-4" /></Link>}
-        />
+        <Reveal>
+          <SectionHead
+            eyebrow="Engagement models"
+            title={<>Engage us in the <span className="serif text-asanyx-blue">way that fits</span> your program.</>}
+            action={<Link href="/engagement-models" className="btn-outline">All engagement models <Icons.ArrowRight className="w-4 h-4" /></Link>}
+          />
+        </Reveal>
         <div className="grid md:grid-cols-4 gap-6">
-          {models.map(m => (
-            <div key={m.name} className="pb-6 border-b border-hairline">
+          {models.map((m, i) => (
+            <Reveal key={m.name} delay={i * 80}>
+            <div className="pb-6 border-b border-hairline">
               <div className="text-lg font-semibold text-ink dark:text-white">{m.name}</div>
               <p className="mt-1 text-[14px] text-muted-brand">{m.desc}</p>
             </div>
+            </Reveal>
           ))}
         </div>
       </div>
@@ -193,6 +212,7 @@ export function CTABand() {
   return (
     <section className="section-y">
       <div className="container-x">
+        <Reveal>
         <div className="rounded-2xl bg-ink text-white p-12 md:p-16">
           <div className="max-w-2xl">
             <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-signal-cyan">Let&apos;s talk</div>
@@ -206,6 +226,7 @@ export function CTABand() {
             </div>
           </div>
         </div>
+        </Reveal>
       </div>
     </section>
   )

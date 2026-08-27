@@ -108,7 +108,7 @@
     @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-[14px] font-medium text-white transition-all;
     background: #0B1B3A;
   }
-  .btn-primary:hover { background: #1257C7; }
+  .btn-primary:hover { background: #1257C7; transform: scale(1.03); }
 
   .btn-outline {
     @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-[14px] font-medium transition-all;
@@ -126,14 +126,16 @@
 
   /* Editorial card - very restrained, no shadow by default */
   .card-min {
-    @apply rounded-xl border transition-all duration-300 bg-white dark:bg-slate-900;
+    @apply rounded-xl border transition-all duration-200 bg-white dark:bg-slate-900;
     border-color: #ECE9E1;
   }
   .dark .card-min { border-color: rgba(255,255,255,0.08); }
   .card-min:hover {
     border-color: #0B1B3A;
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px -14px rgba(11,27,58,0.20);
   }
-  .dark .card-min:hover { border-color: rgba(18,182,232,0.35); }
+  .dark .card-min:hover { border-color: rgba(18,182,232,0.35); box-shadow: 0 14px 30px -14px rgba(0,0,0,0.5); }
 
   /* Section spacing helpers */
   .section-y { @apply py-24 md:py-32; }
@@ -167,4 +169,31 @@
     to { transform: translateX(-50%); }
   }
   .marquee { animation: marquee 50s linear infinite; }
+
+  /* Scroll reveal (driven by the reusable <Reveal /> IntersectionObserver wrapper) */
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+  }
+  .reveal.reveal-in { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+
+  /* Nav link animated underline (CSS only) */
+  .nav-link { position: relative; }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: 3px;
+    height: 1.5px;
+    background: #1257C7;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+  .nav-link:hover::after, .nav-link:focus-visible::after { transform: scaleX(1); }
 }

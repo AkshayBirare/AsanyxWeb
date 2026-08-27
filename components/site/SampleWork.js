@@ -22,7 +22,7 @@ const samples = [
     ],
   },
   {
-    title: 'AdventureWorks Business Overview Dashboard',
+    title: 'Business Overview Dashboard',
     desc: 'Multi-page sales report demonstrating profit trend with MoM% variance, drill-through hierarchy, demographic and regional analysis and product-level margin breakdown.',
     pages: [
       { label: 'Landing Page', img: '/samples/aw-landing-page' },

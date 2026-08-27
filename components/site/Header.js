@@ -11,7 +11,7 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
-  const { theme, setTheme } = useTheme()
+  const { theme, setTheme, resolvedTheme } = useTheme()
 
   useEffect(() => { setMounted(true) }, [])
   useEffect(() => {
@@ -27,13 +27,13 @@ export default function Header() {
         <div className="flex items-center justify-between h-18 py-3">
           <Link href="/" className="flex items-center" aria-label="ASANYX Analytics">
             <div className="relative w-[172px] h-[60px] md:w-[200px] md:h-[70px]">
-              <Image src={site.logo} alt="ASANYX Analytics" fill className="object-contain object-left" priority sizes="(min-width: 768px) 200px, 172px" />
+              <Image src={mounted && resolvedTheme === 'dark' ? site.logoOnDark : site.logo} alt="ASANYX Analytics" fill className="object-contain object-left" priority sizes="(min-width: 768px) 200px, 172px" />
             </div>
           </Link>
 
           <nav className="hidden xl:flex items-center gap-0.5">
             {nav.slice(0, 9).map(item => (
-              <Link key={item.href} href={item.href} className={`px-2.5 py-2 text-[12.5px] font-medium whitespace-nowrap transition-colors ${item.label === 'Migration Services' ? 'text-brand-violet' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'}`}>
+              <Link key={item.href} href={item.href} className={`nav-link px-2.5 py-2 text-[12.5px] font-medium whitespace-nowrap transition-colors ${item.label === 'BI Migration' ? 'text-brand-violet' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'}`}>
                 {item.label}
               </Link>
             ))}

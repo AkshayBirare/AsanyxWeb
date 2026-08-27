@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { toast } from 'sonner'
 import { Mail, Phone, MapPin, Clock, Linkedin, Send } from 'lucide-react'
 import { site, inquiryCategories } from '@/lib/site'
+import Reveal from '@/components/site/Reveal'
 
 export default function ContactPage() {
   const [form, setForm] = useState({ name:'', email:'', company:'', phone:'', service:'consultation', message:'' })
@@ -29,7 +30,7 @@ export default function ContactPage() {
       </section>
 
       <section className="py-16 lg:py-24 bg-white dark:bg-slate-950">
-        <div className="container-x grid md:grid-cols-5 gap-10">
+        <Reveal className="container-x grid md:grid-cols-5 gap-10">
           <div className="md:col-span-2 space-y-4">
             <div className="card-corp p-6">
               <div className="font-semibold text-slate-900 dark:text-white">Reach us</div>
@@ -69,7 +70,7 @@ export default function ContactPage() {
             <button disabled={busy} className="btn-primary w-full">{busy ? 'Sending...' : <>Send Message <Send className="w-4 h-4" /></>}</button>
             <p className="text-[11px] text-slate-500 text-center">By submitting, you agree to our privacy policy.</p>
           </form>
-        </div>
+        </Reveal>
       </section>
     </SiteLayout>
   )

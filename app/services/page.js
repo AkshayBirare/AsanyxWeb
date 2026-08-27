@@ -1,6 +1,7 @@
 'use client'
 import SiteLayout from '@/components/site/Layout'
 import { CTABand } from '@/components/site/Sections'
+import Reveal from '@/components/site/Reveal'
 import { services } from '@/lib/site'
 import * as Icons from 'lucide-react'
 import Link from 'next/link'
@@ -23,7 +24,7 @@ export default function ServicesPage() {
         const Icon = Icons[s.icon] || Icons.Circle
         return (
           <section key={s.slug} id={s.slug} className={`py-16 lg:py-24 ${i % 2 === 0 ? 'bg-section-alt' : 'bg-white dark:bg-slate-950'}`}>
-            <div className="container-x grid lg:grid-cols-12 gap-10">
+            <Reveal className="container-x grid lg:grid-cols-12 gap-10">
               <div className="lg:col-span-4">
                 <div className="w-12 h-12 rounded-lg bg-brand-tint text-brand-violet grid place-items-center"><Icon className="w-6 h-6" /></div>
                 <h2 className="mt-5 text-3xl font-bold text-slate-900 dark:text-white">{s.title}</h2>
@@ -57,7 +58,7 @@ export default function ServicesPage() {
                   </div>
                 )}
               </div>
-            </div>
+            </Reveal>
           </section>
         )
       })}
