@@ -28,7 +28,7 @@ export default function Footer() {
           <div className="md:col-span-4">
             <Link href="/" className="flex items-center gap-3">
               <div className="relative w-11 h-11 rounded-lg overflow-hidden bg-white p-1">
-                <Image src={site.logo} alt="ASANYX" fill className="object-contain p-1" />
+                <Image src={site.logoMono} alt="ASANYX" fill className="object-contain p-1" />
               </div>
               <div>
                 <div className="font-bold text-white">ASANYX Analytics</div>

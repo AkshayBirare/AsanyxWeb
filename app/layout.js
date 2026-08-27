@@ -48,7 +48,7 @@ export default function RootLayout({ children }) {
     '@type': 'Organization',
     name: 'ASANYX Analytics (OPC) Private Limited',
     url: 'https://asanyxanalytics.com',
-    logo: 'https://customer-assets-jai6qajn.emergentagent.net/job_80e05dd0-4f9f-485e-b1aa-5d8939ea0cd2/artifacts/bi2y6etn_Screenshot%202026-07-28%20071001.png',
+    logo: 'https://asanyxanalytics.com/brand/logos/asanyx-favicon-512.png',
     email: 'contact@asanyxanalytics.com',
     telephone: '+91 8468982682',
     founder: { '@type': 'Person', name: 'Akshay Birare', jobTitle: 'Founder, Director & CEO' },
@@ -57,7 +57,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="https://customer-assets-jai6qajn.emergentagent.net/job_80e05dd0-4f9f-485e-b1aa-5d8939ea0cd2/artifacts/bi2y6etn_Screenshot%202026-07-28%20071001.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/brand/logos/asanyx-favicon-16.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/brand/logos/asanyx-favicon-32.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/brand/logos/asanyx-apple-touch-180.png" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
       <body>
