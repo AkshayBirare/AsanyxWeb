@@ -25,6 +25,7 @@ export function CoreCapabilities() {
   const capabilities = [
     { title: 'Business Intelligence & Reporting', desc: 'Executive dashboards, semantic models and KPI reporting on Power BI and Microsoft Fabric.', icon: 'BarChart3', href: '/services#business-intelligence-reporting' },
     { title: 'BI Migration', desc: 'Hands-on migrations from Tableau, Qlik Sense and Looker to Power BI - business logic, calculations and figures preserved exactly.', icon: 'Repeat', href: '/migration-services' },
+    { title: 'Data Engineering & Modernization', desc: 'Modern data platforms, lakehouse engineering and pipeline design on Azure, Microsoft Fabric, Databricks and Snowflake.', icon: 'Database', href: '/services#data-modernization' },
     { title: 'Staff Augmentation', desc: 'Power BI, Fabric and data engineering consultants embedded in your team - short or long-term, offshore or remote.', icon: 'Users', href: '/services#staff-augmentation' },
     { title: 'White-Label Delivery Partnership', desc: 'Behind-the-scenes BI and data delivery for agencies and consultancies - client-branded, confidentiality-first.', icon: 'Handshake', href: '/services#white-label-delivery' },
   ]
@@ -35,7 +36,7 @@ export function CoreCapabilities() {
           <SectionHead
             eyebrow="What we do"
             title={<>Focused practices. <span className="serif text-asanyx-blue">One partner</span> for your data platform.</>}
-            subtitle="A focused set of services from a senior team. Four core practices below - see all seven on our services page."
+            subtitle="A focused set of services from a senior team. Five core practices below - see all seven on our services page."
             action={<Link href="/services" className="btn-outline">All services <Icons.ArrowRight className="w-4 h-4" /></Link>}
           />
         </Reveal>
